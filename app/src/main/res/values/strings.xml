@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">脸勤</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="user_setting">用户</string>
+    <string name="account_safe_setting">账号安全</string>
+    <string name="account_summary_setting">查看相关账号信息</string>
+    <string name="bind_phone_setting">绑定手机号</string>
+    <string name="bind_phone_summary_setting">点击绑定您的手机号码</string>
+    <string name="bind_phone_tips">请输入您的手机号码</string>
+    <string name="bind_email_setting">绑定邮箱</string>
+    <string name="bind_email_summary_setting">绑定您的邮箱号</string>
+    <string name="bind_email_tips">点击请输入您的邮箱</string>
+
+    <string name="about_setting">关于</string>
+    <string name="about_lianqin_setting">关于脸勤</string>
+    <string name="about_user_suggest_setting">意见反馈</string>
+
+    <string name="more_setting">更多</string>
+    <string name="check_update_setting">检查更新</string>
+    <string name="clear_setting">清除缓存</string>
+
+    <string name="teacher">教师名字</string>
+
+</resources>

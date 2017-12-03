@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/user_setting"
+        android:key="user_s">
+        <Preference android:key="user_account_safe"
+            android:title="@string/account_safe_setting"
+            android:summary="@string/account_summary_setting"/>
+        <EditTextPreference android:key="bind_phone"
+            android:title="@string/bind_phone_setting"
+            android:defaultValue="@string/bind_phone_tips"
+            android:summary="@string/bind_phone_summary_setting"/>
+        <EditTextPreference android:key="bind_email"
+            android:title="@string/bind_email_setting"
+            android:defaultValue="@string/bind_email_tips"
+            android:summary="@string/bind_phone_summary_setting"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/about_setting"
+        android:key="about_s">
+        <Preference android:key="about"
+            android:title="@string/about_lianqin_setting" />
+        <Preference android:key="suggest"
+            android:title="@string/about_user_suggest_setting"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/more_setting"
+        android:key="more_s">
+        <Preference android:key="check"
+            android:title="@string/check_update_setting" />
+        <Preference android:key="clear"
+            android:title="@string/clear_setting" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
