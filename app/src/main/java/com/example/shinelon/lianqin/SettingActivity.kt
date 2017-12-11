@@ -1,6 +1,9 @@
 package com.example.shinelon.lianqin
 
+import android.app.Activity
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import com.example.shinelon.lianqin.fragment.SettingFragment
 import kotlinx.android.synthetic.main.activity_container.*
@@ -21,4 +24,6 @@ class SettingActivity: AppCompatActivity() {
                 .commit()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
+
+
 }

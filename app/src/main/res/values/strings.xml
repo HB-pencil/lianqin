@@ -13,8 +13,8 @@
     <string name="bind_phone_summary_setting">点击绑定您的手机号码</string>
     <string name="bind_phone_tips">请输入您的手机号码</string>
     <string name="bind_email_setting">绑定邮箱</string>
-    <string name="bind_email_summary_setting">绑定您的邮箱号</string>
-    <string name="bind_email_tips">点击请输入您的邮箱</string>
+    <string name="bind_email_summary_setting">点击绑定您的邮箱号</string>
+    <string name="bind_email_tips">请输入您的邮箱</string>
 
     <string name="about_setting">关于</string>
     <string name="about_lianqin_setting">关于脸勤</string>
@@ -25,5 +25,8 @@
     <string name="clear_setting">清除缓存</string>
 
     <string name="teacher">教师名字</string>
+    <string name="choose_bj">选择班级</string>
+    <string name="recognize">请将方框对准人脸</string>
+    <string name="recognizing">检测中</string>
 
 </resources>

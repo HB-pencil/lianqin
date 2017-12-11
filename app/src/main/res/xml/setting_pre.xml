@@ -13,7 +13,7 @@
         <EditTextPreference android:key="bind_email"
             android:title="@string/bind_email_setting"
             android:defaultValue="@string/bind_email_tips"
-            android:summary="@string/bind_phone_summary_setting"/>
+            android:summary="@string/bind_email_summary_setting"/>
     </PreferenceCategory>
 
     <PreferenceCategory
