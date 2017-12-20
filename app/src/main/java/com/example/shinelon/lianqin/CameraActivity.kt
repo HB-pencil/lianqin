@@ -1,28 +1,44 @@
 package com.example.shinelon.lianqin
 
+import android.graphics.Rect
 import android.hardware.Camera
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.view.Surface
+import android.widget.ImageView
 import android.widget.RelativeLayout
+import com.example.shinelon.lianqin.R.id.camera_container
 import com.example.shinelon.lianqin.customview.CameraView
+import com.example.shinelon.lianqin.customview.IndicateView
 import kotlinx.android.synthetic.main.camera_layout.*
 import org.jetbrains.anko.centerInParent
 
 /**
  * Created by Shinelon on 2017/12/11.
  */
-class CameraActivity: AppCompatActivity() {
+@SuppressWarnings("deprecation")
+class CameraActivity: AppCompatActivity(){
     private var camera: Camera? = null
     private var preview: CameraView? = null
+    private var indicateView: IndicateView? = null
+    private var cameraId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.camera_layout)
         setSupportActionBar(camera_toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        camera = getCameraInstance()
+        initCamera(cameraId)
+
+        turn_camera.setOnClickListener{
+            stopCamera()
+            if (cameraId == 0) cameraId = 1 else cameraId = 0
+            initCamera(cameraId)
+        }
+    }
+
+    fun initCamera(id: Int){
+        camera = getCameraInstance(id)
         preview = CameraView(this,camera)
         val dm = resources.displayMetrics
         val w = dm.widthPixels
@@ -35,20 +51,34 @@ class CameraActivity: AppCompatActivity() {
         camera_container.addView(preview)
     }
 
+    fun stopCamera(){
+        camera?.setFaceDetectionListener(null)
+        camera?.setPreviewCallback(null)
+        camera?.stopPreview()
+        camera_container.removeView(preview)
+        preview = null
+        camera?.release()
+        camera = null
+    }
+
+
     override fun onResume() {
         super.onResume()
-        camera = getCameraInstance()
+        if (camera == null) initCamera(cameraId)
+        Log.w("onResume","success")
     }
 
     override fun onPause() {
         super.onPause()
-        camera?.release()
+        Log.w("onPause()","success")
+        stopCamera()
     }
 
-    fun getCameraInstance(): Camera{
+
+    fun getCameraInstance(id: Int): Camera{
         if(camera==null){
             try{
-                camera = Camera.open(0)
+                camera = Camera.open(id)
             }catch (e: Exception){
                 e.stackTrace
             }
@@ -57,5 +87,9 @@ class CameraActivity: AppCompatActivity() {
         return camera!!
     }
 
-
+    fun addView(indicate: IndicateView){
+        if(indicateView!=null) camera_container.removeView(indicateView)
+        camera_container.addView(indicate)
+        indicateView = indicate
+    }
 }
