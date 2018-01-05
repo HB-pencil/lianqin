@@ -10,7 +10,7 @@ import android.widget.ImageView
 import com.example.shinelon.lianqin.R
 
 /**
- * Created by Shinelon on 2017/12/11.
+ * Created by HB on 2017/12/11.
  */
 class ChooseView: ImageButton {
     private val mPaint = Paint()

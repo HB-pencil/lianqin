@@ -1,20 +1,17 @@
 package com.example.shinelon.lianqin
 
-import android.graphics.Rect
 import android.hardware.Camera
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import android.widget.ImageView
 import android.widget.RelativeLayout
-import com.example.shinelon.lianqin.R.id.camera_container
 import com.example.shinelon.lianqin.customview.CameraView
 import com.example.shinelon.lianqin.customview.IndicateView
 import kotlinx.android.synthetic.main.camera_layout.*
 import org.jetbrains.anko.centerInParent
 
 /**
- * Created by Shinelon on 2017/12/11.
+ * Created by HB on 2017/12/11.自定义相机Activity
  */
 @SuppressWarnings("deprecation")
 class CameraActivity: AppCompatActivity(){
@@ -52,6 +49,7 @@ class CameraActivity: AppCompatActivity(){
     }
 
     fun stopCamera(){
+        camera?.stopFaceDetection()
         camera?.setFaceDetectionListener(null)
         camera?.setPreviewCallback(null)
         camera?.stopPreview()

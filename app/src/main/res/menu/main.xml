@@ -10,4 +10,7 @@
         android:id="@+id/action_settings"
         android:title="设置"
         app:showAsAction="never" />
+    <item android:id="@+id/action_exit"
+        android:title="退出账号"
+        app:showAsAction="never"/>
 </menu>

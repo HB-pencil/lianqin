@@ -19,6 +19,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
+/**
+ * created by HB,主界面Activity,作为View
+ */
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
     private var provider: messageActionProvider? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,6 +84,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val intent = Intent(this, SettingActivity::class.java)
                 startActivity(intent)
                 overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+            }
+            R.id.action_exit->{
+
             }
         }
         return super.onOptionsItemSelected(item)

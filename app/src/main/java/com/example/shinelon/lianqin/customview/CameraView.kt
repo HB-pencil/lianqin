@@ -10,7 +10,7 @@ import com.example.shinelon.lianqin.listener.FaceDeListener
 import java.io.ByteArrayOutputStream
 
 /**
- * Created by Shinelon on 2017/12/11.
+ * Created by HB on 2017/12/11.
  */
 @SuppressWarnings("deprecation")
 class CameraView(context: CameraActivity,c:Camera?): SurfaceView(context),SurfaceHolder.Callback,Camera.PreviewCallback{

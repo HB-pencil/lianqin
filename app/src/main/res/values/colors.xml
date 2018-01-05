@@ -2,6 +2,9 @@
 <resources>
     <color name="colorPrimary">#01A5ED</color>
     <color name="colorPrimaryDark">#01A5ED</color>
-    <color name="colorAccent">#ff0101</color>
+    <color name="colorAccent">#ff0310</color>
+    <color name="editTextStyleColor">#8e03ff</color>
     <color name="black">#000000</color>
+    <color name="selected">#1a1b2c</color>
+    <color name="unselected">#ffffff</color>
 </resources>

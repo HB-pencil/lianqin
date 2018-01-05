@@ -4,14 +4,12 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
-import android.widget.FrameLayout
 import android.widget.RelativeLayout
 import com.example.shinelon.lianqin.R
-import kotlinx.android.synthetic.main.camera_layout.*
 import org.jetbrains.anko.centerInParent
 
 /**
- * Created by Shinelon on 2017/12/11.
+ * Created by HB on 2017/12/11.
  */
 class assitantView: View {
     val paint = Paint()

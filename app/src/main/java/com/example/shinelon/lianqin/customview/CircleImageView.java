@@ -15,7 +15,7 @@ import android.util.Log;
 
 
 /**
- * Created by Shinelon on 2017/10/27.
+ * Created by HB on 2017/10/27.
  */
 
 public class CircleImageView extends ImageView {

@@ -1,6 +1,5 @@
 package com.example.shinelon.lianqin.fragment
 
-import android.app.Fragment
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
@@ -14,7 +13,7 @@ import com.example.shinelon.lianqin.R
 
 
 /**
- * Created by Shinelon on 2017/12/2.
+ * Created by HB on 2017/12/2.
  */
 class SettingFragment:PreferenceFragment(),SharedPreferences.OnSharedPreferenceChangeListener{
     private var cachePref: Preference? = null

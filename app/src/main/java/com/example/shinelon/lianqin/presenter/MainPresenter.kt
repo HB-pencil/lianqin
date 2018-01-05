@@ -9,18 +9,19 @@ import android.view.MenuItem
 import com.example.shinelon.lianqin.MainActivity
 import com.example.shinelon.lianqin.R
 import com.example.shinelon.lianqin.SettingActivity
+import com.example.shinelon.lianqin.view.BaseView
 
 import com.example.shinelon.lianqin.view.MainView
 
 /**
- * Created by Shinelon on 2017/12/11.
+ * Created by HB on 2017/12/11.
  */
 
 class MainPresenter : BasePresenter {
     private var mainView: MainView? = null
 
-    override fun setView(view: MainView?) {
-        mainView = view
+    override fun setView(baseView: BaseView?) {
+        mainView = baseView as MainView
     }
 
     fun init(){
@@ -35,4 +36,7 @@ class MainPresenter : BasePresenter {
        mainView?.itemNavSelected(item)
     }
 
+    override fun clearView() {
+        mainView = null
+    }
 }

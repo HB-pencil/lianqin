@@ -8,7 +8,7 @@ import android.view.View
 import android.widget.FrameLayout
 
 /**
- * Created by Shinelon on 2017/12/20.
+ * Created by HB on 2017/12/20.
  */
 class IndicateView: View {
     private val mPaint: Paint = Paint()

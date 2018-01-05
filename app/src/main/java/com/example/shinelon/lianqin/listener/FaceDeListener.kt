@@ -7,7 +7,7 @@ import com.example.shinelon.lianqin.customview.CameraView
 import com.example.shinelon.lianqin.customview.IndicateView
 
 /**
- * Created by Shinelon on 2017/12/20.
+ * Created by HB on 2017/12/20.
  */
 class FaceDeListener(val activity: CameraActivity,val cameraView: CameraView): Camera.FaceDetectionListener {
 

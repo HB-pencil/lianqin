@@ -1,15 +1,12 @@
 package com.example.shinelon.lianqin
 
-import android.app.Activity
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import com.example.shinelon.lianqin.fragment.SettingFragment
 import kotlinx.android.synthetic.main.activity_container.*
 
 /**
- * Created by Shinelon on 2017/12/2.
+ * Created by HB on 2017/12/2.设置界面Activity
  */
 class SettingActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

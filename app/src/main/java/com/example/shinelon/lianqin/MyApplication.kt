@@ -4,7 +4,7 @@ import android.app.Application
 import android.support.v7.app.AppCompatDelegate
 
 /**
- * Created by Shinelon on 2017/12/2.
+ * Created by HB on 2017/12/2.夜间模式设置
  */
 class MyApplication: Application() {
     override fun onCreate() {
