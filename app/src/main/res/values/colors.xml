@@ -6,5 +6,7 @@
     <color name="editTextStyleColor">#8e03ff</color>
     <color name="black">#000000</color>
     <color name="selected">#1a1b2c</color>
+    <color name="cardview">#e8e8e8</color>
+    <color name="grey">#5d5d5d</color>
     <color name="unselected">#ffffff</color>
 </resources>

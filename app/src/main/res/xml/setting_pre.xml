@@ -20,7 +20,8 @@
         android:title="@string/about_setting"
         android:key="about_s">
         <Preference android:key="about"
-            android:title="@string/about_lianqin_setting" />
+            android:title="@string/about_lianqin_setting"
+            android:summary="version1.0"/>
         <Preference android:key="suggest"
             android:title="@string/about_user_suggest_setting"/>
     </PreferenceCategory>

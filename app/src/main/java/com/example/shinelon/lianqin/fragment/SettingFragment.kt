@@ -1,5 +1,6 @@
 package com.example.shinelon.lianqin.fragment
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
@@ -25,9 +26,22 @@ class SettingFragment:PreferenceFragment(),SharedPreferences.OnSharedPreferenceC
         val pre = PreferenceManager.getDefaultSharedPreferences(activity)
         findPreference("bind_phone").summary = pre.getString("bind_phone","点击绑定您的手机号码")
         findPreference("bind_email").summary = pre.getString("bind_email","点击绑定您的手机邮箱")
+        findPreference("about").summary = "version-1.0"
 
         findPreference("clear").setOnPreferenceClickListener {
             clearCache()
+        }
+
+        findPreference("about").setOnPreferenceClickListener{
+            val dialog = AlertDialog.Builder(activity)
+                    .setTitle("关于本软件")
+                    .setMessage("本软件是广州中医药大学医学信息工程学院互联网产品设计大赛参赛作品，作者为“年轻”队伍")
+                    .setPositiveButton("好的我知道了"){
+                        dialogInterface, i ->
+                    }
+                    .create()
+                    .show()
+            false
         }
 
         findPreference("suggest").setOnPreferenceClickListener {

@@ -18,7 +18,7 @@ class LoginActivity: AppCompatActivity(),LoginView {
         setContentView(R.layout.login_layout)
         presenter = LoginPresenter()
         presenter?.setView(this)
-
+        Log.e("application",application.toString())
         login_bt.setOnClickListener { presenter?.checkAccount() }
     }
 
@@ -30,6 +30,7 @@ class LoginActivity: AppCompatActivity(),LoginView {
         val intent = Intent(this,MainActivity::class.java)
         startActivity(intent)
         overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
+        finish()
         Log.e("登录","成功登录")
     }
 

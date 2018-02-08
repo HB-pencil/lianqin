@@ -1,9 +1,13 @@
 package com.example.shinelon.lianqin
 
+import android.content.Intent
 import android.hardware.Camera
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import android.view.MotionEvent
 import android.widget.RelativeLayout
 import com.example.shinelon.lianqin.customview.CameraView
 import com.example.shinelon.lianqin.customview.IndicateView
@@ -42,8 +46,12 @@ class CameraActivity: AppCompatActivity(){
         val h = dm.heightPixels
         val p = camera_container.layoutParams as RelativeLayout.LayoutParams
         p.centerInParent()
-        p.width = (w*0.8).toInt()
-        p.height = (h*0.6).toInt()
+
+        p.height = (h*0.74).toInt()
+        val size = camera?.parameters?.supportedPreviewSizes?.last()
+        val scale = size!!.height.toFloat()/size.width
+        p.width = (scale * p.height).toInt()
+        Log.e("TIPS","surfaceView的比例$scale")
         camera_container.layoutParams = p
         camera_container.addView(preview)
     }
@@ -59,13 +67,18 @@ class CameraActivity: AppCompatActivity(){
         camera = null
     }
 
-
+    /**
+     * 恢复相机资源
+     */
     override fun onResume() {
         super.onResume()
         if (camera == null) initCamera(cameraId)
         Log.w("onResume","success")
     }
 
+    /**
+     * 停止相机，释放资源
+     */
     override fun onPause() {
         super.onPause()
         Log.w("onPause()","success")
@@ -89,5 +102,23 @@ class CameraActivity: AppCompatActivity(){
         if(indicateView!=null) camera_container.removeView(indicateView)
         camera_container.addView(indicate)
         indicateView = indicate
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.activity_camera_menu,menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            R.id.menu_check -> manualCheck()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    fun manualCheck(){
+        val intent = Intent(this,ManualActivity::class.java)
+        startActivity(intent)
+        overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
     }
 }

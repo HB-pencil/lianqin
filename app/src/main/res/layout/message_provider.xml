@@ -20,5 +20,6 @@
         android:layout_alignEnd="@+id/message_view"
         android:layout_alignParentTop="true"
         android:scaleType="fitCenter"
-        android:src="@drawable/circle" />
+        android:src="@drawable/circle"
+        android:visibility="invisible"/>
 </RelativeLayout>

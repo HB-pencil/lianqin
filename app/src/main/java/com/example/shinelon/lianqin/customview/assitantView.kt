@@ -29,9 +29,9 @@ class assitantView: View {
         val dm = resources.displayMetrics
         val w = dm.widthPixels
         val h = dm.heightPixels
-        val p =layoutParams as RelativeLayout.LayoutParams
+        val p = layoutParams as RelativeLayout.LayoutParams
         p.centerInParent()
-        p.width = (w*0.7).toInt()
+        p.width = (w*0.67).toInt()
         p.height = p.width
         setMeasuredDimension(p.width,p.height)
     }

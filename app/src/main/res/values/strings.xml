@@ -28,5 +28,13 @@
     <string name="choose_bj">选择班级</string>
     <string name="recognize">请将方框对准人脸</string>
     <string name="recognizing">检测中</string>
+    <string name="camera_menu">考勤</string>
 
+    <string name="id_tips">（请输入学号）</string>
+
+    <string name="private_broadcast">个人消息</string>
+    <string name="public_broadcast">系统通知</string>
+
+    <string name="note_tips">没有记录哦，赶快写一个吧！</string>
+    <string name="note_title">备忘录</string>
 </resources>

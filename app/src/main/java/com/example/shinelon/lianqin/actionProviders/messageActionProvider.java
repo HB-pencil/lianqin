@@ -17,7 +17,8 @@ import com.example.shinelon.lianqin.R;
 public class messageActionProvider extends ActionProvider {
    private View v;
    private View.OnClickListener listener;
-    public messageActionProvider(Context context){
+   public boolean hasMessage = true;
+   public messageActionProvider(Context context){
         super(context);
     }
     @Override
@@ -26,6 +27,9 @@ public class messageActionProvider extends ActionProvider {
         v = view;
         Log.d("Listener",""+ (listener==null));
         v.setOnClickListener(listener);
+        if (hasMessage){
+            showCircle(v);
+        }
         return view;
     }
 
@@ -34,11 +38,13 @@ public class messageActionProvider extends ActionProvider {
     }
 
     public void hideCircle(){
+        hasMessage = false;
         ImageView imageView = (ImageView) v.findViewById(R.id.red_circle);
         imageView.setVisibility(View.INVISIBLE);
     }
 
-    public void showCircle(){
+    public void showCircle(View v){
+        hasMessage = true;
         ImageView imageView = (ImageView) v.findViewById(R.id.red_circle);
         imageView.setVisibility(View.VISIBLE);
     }

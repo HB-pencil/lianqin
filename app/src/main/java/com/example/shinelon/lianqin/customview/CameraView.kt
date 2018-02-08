@@ -18,7 +18,6 @@ class CameraView(context: CameraActivity,c:Camera?): SurfaceView(context),Surfac
     private var mHolder: SurfaceHolder? = null
     private val mPaint = Paint()
     private val activity = context
-    private var i = 0
     var isFace: Boolean = false
     init {
         camera = c
@@ -57,7 +56,7 @@ class CameraView(context: CameraActivity,c:Camera?): SurfaceView(context),Surfac
 
         camera?.parameters = p
         camera?.setDisplayOrientation(90)
-        //使用观察者模式
+
         val listener = FaceDeListener(activity,this)
         camera?.setFaceDetectionListener(listener)
         //camera.takePicture()拍照的动作
@@ -94,15 +93,14 @@ class CameraView(context: CameraActivity,c:Camera?): SurfaceView(context),Surfac
         val yuvImage = YuvImage(data,ImageFormat.NV21,preSize!!.width,
                 preSize.height,null)
         val out = ByteArrayOutputStream()
-        yuvImage.compressToJpeg(Rect(0,0,preSize.width,preSize.height),98,out)
+        yuvImage.compressToJpeg(Rect(0,0,preSize.width,preSize.height),80,out)
         val d = out.toByteArray()
         Log.w("data","${d.size}")
-        if (isFace && i<3){
+        if (isFace){
             Log.e("此处取人脸照片","success")
-            i++
-        }else{
-            isFace = false
+
         }
+        isFace = false
     }
 
     fun startFaceDetection(){
