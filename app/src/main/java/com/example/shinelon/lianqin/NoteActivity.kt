@@ -143,8 +143,6 @@ class NoteActivity: AppCompatActivity(),NoteView {
         override fun getItemCount(): Int = listNotes.size
 
         override fun dragAction(start: Int, target: Int) {
-            Collections.swap(listNotes,start,target)
-            notifyItemMoved(start,target)
             val p0 = listNotes[start]
             val p1 = listNotes[target]
 
@@ -156,14 +154,17 @@ class NoteActivity: AppCompatActivity(),NoteView {
             v1.put("content",p0.text)
             v1.put("time",p0.date)
 
+            Collections.swap(listNotes,start,target)
+            notifyItemMoved(start,target)
+
             presenter!!.updateItem(DataBase.table,v0,"id=?", arrayOf(p0.uuid))
             presenter!!.updateItem(DataBase.table,v1,"id=?", arrayOf(p1.uuid))
         }
 
         override fun swipAction(position: Int) {
+            val uuid = listNotes[position].uuid
             listNotes.removeAt(position)
             notifyItemRemoved(position)
-            val uuid = listNotes[position].uuid
             presenter!!.deleteItem(DataBase.table,"id=?", arrayOf(uuid))
         }
     }
