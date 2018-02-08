@@ -14,14 +14,14 @@ import com.example.shinelon.lianqin.R
 class ItemTouchCallback(val listener: NoteActivity.ActionListener?): ItemTouchHelper.Callback() {
 
     override fun onMove(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?, target: RecyclerView.ViewHolder?): Boolean {
-        val s = viewHolder!!.layoutPosition
-        val t = target!!.layoutPosition
+        val s = viewHolder!!.adapterPosition -1
+        val t = target!!.adapterPosition -1
         listener!!.dragAction(s,t)
         return true
     }
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder?, direction: Int) {
-       listener!!.swipAction(viewHolder!!.layoutPosition)
+       listener!!.swipAction(viewHolder!!.adapterPosition-1)
     }
 
     override fun getMovementFlags(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?): Int {
