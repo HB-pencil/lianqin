@@ -6,4 +6,6 @@
 - 使用Kotlin语言
 - DrawerLayout + CoordinatorLayout + Toolbar
 - 自定义动画
+- ViewPager的使用
+- SQLite数据库编程
 

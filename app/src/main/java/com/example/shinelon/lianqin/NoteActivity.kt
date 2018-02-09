@@ -56,7 +56,6 @@ class NoteActivity: AppCompatActivity(),NoteView {
         setSupportActionBar(activity_list_toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         updateView()
-        initRecycler(list)
         recycler_note.itemAnimator = DefaultItemAnimator()
         val itemHelper = ItemTouchHelper(ItemTouchCallback(adapter))
         itemHelper.attachToRecyclerView(recycler_note)
@@ -75,7 +74,7 @@ class NoteActivity: AppCompatActivity(),NoteView {
         }else{
             adapter!!.notifyDataSetChanged()
         }
-
+        initRecycler(list)
     }
 
     override fun onResume() {

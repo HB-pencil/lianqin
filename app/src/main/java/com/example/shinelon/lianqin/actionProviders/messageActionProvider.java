@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.example.shinelon.lianqin.R;
+import com.example.shinelon.lianqin.listener.ActionProviderListener;
 
 /**
  * Created by  HB on 2017/12/9.
@@ -33,7 +34,7 @@ public class messageActionProvider extends ActionProvider {
         return view;
     }
 
-    public void setListener(providerClickListener clickListener){
+    public void setListener(ActionProviderListener clickListener){
         listener = clickListener;
     }
 
@@ -49,6 +50,5 @@ public class messageActionProvider extends ActionProvider {
         imageView.setVisibility(View.VISIBLE);
     }
 
-    interface providerClickListener extends View.OnClickListener{
-    }
+
 }

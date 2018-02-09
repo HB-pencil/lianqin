@@ -1,49 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:theme="@style/AppTheme.AppBarOverlay"
-        android:layout_height="200dp">
+        android:fitsSystemWindows="true"
+        android:layout_height="wrap_content">
 
         <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing"
+            android:fitsSystemWindows="true"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:minHeight="?actionBarSize"
+            android:layout_height="220dp"
+            app:statusBarScrim="@color/colorPrimary"
             app:contentScrim="@color/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed|exitUntilCollapsed">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/school"/>
 
             <ImageView
                 android:layout_width="28dp"
                 android:layout_gravity="start|bottom"
                 android:layout_margin="25dp"
                 android:layout_height="28dp"
+                android:layout_marginBottom="0dp"
                 android:src="@drawable/book"
-                android:scaleType="fitCenter" />
-            <ImageView
-                android:layout_width="70dp"
-                android:layout_gravity="center|bottom"
-                android:layout_margin="20dp"
-                android:layout_height="70dp"
-                android:src="@drawable/school"
-                android:scaleType="fitCenter"/>
+                android:scaleType="centerInside" />
             <ImageView
                 android:layout_width="30dp"
                 android:layout_gravity="end|bottom"
                 android:layout_margin="25dp"
                 android:layout_height="30dp"
+                android:layout_marginBottom="0dp"
                 android:src="@drawable/student"
-                android:scaleType="fitCenter" />
+                android:scaleType="centerInside" />
             <android.support.v7.widget.Toolbar
                 android:id="@+id/choose_activity_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
+                android:fitsSystemWindows="true"
                 android:background="@android:color/transparent"
                 app:layout_collapseMode="pin">
             </android.support.v7.widget.Toolbar>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:text="班级选择"
+                android:layout_gravity="center|top"
+                app:layout_collapseMode="pin"/>
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>

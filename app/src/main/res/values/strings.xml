@@ -37,4 +37,18 @@
 
     <string name="note_tips">没有记录哦，赶快写一个吧！</string>
     <string name="note_title">备忘录</string>
+
+    <string name="record_details_title_top_left">累计记录：</string>
+    <string name="record_details_title_top_right">已上堂数：</string>
+    <string name="record_details_title_bottom_left">缺勤人次：</string>
+    <string name="record_details_title_bottom_center">迟到人次：</string>
+    <string name="record_details_title_bottom_right">请假人次：</string>
+    <string name="record_details_top_right">班级人数：</string>
+    <string name="record_details_bottom_left">出勤：</string>
+    <string name="record_details_bottom_left_center">缺勤：</string>
+    <string name="record_details_bottom_right_center">迟到：</string>
+    <string name="record_details_bottom_right">请假：</string>
+    <string name="record_details_button">详情</string>
+    
+    <string name="class_details_top">班级人数:</string>
 </resources>

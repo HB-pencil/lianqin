@@ -35,6 +35,7 @@
         </activity>
         <activity android:name=".ChooseCalssActivity"
             android:label=""
+            android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName=".MainActivity"/>
         <activity android:name=".ManualActivity"
             android:label="脸勤"
@@ -48,6 +49,15 @@
             android:parentActivityName=".MainActivity"/>
         <activity android:name=".NoteDetailsActivity"
             android:parentActivityName=".NoteActivity"/>
+        <activity android:name=".RecordActivity"
+            android:label="选择班级"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".RecordDetailsActivity"
+            android:parentActivityName=".RecordActivity"/>
+        <activity android:name=".RecordClassDetailsActivity"
+            android:parentActivityName=".RecordDetailsActivity"/>
+        <activity android:name=".StudentDetailsActivity"
+            android:parentActivityName=".RecordClassDetailsActivity"/>
     </application>
 
 </manifest>

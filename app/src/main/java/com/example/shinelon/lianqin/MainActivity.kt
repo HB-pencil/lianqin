@@ -18,9 +18,11 @@ import android.support.v7.app.AppCompatDelegate
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import com.example.shinelon.lianqin.actionProviders.messageActionProvider
 import com.example.shinelon.lianqin.helper.PermissionsChecker
+import com.example.shinelon.lianqin.listener.ActionProviderListener
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -143,15 +145,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         menuInflater.inflate(R.menu.main,menu)
         val menuItem = menu?.findItem(R.id.action_message) as MenuItem
         provider = MenuItemCompat.getActionProvider(menuItem) as messageActionProvider
-        Log.d("Listener","provider调用")
+        Log.d("Listener","provider调用"+provider.toString())
 
-        provider?.setListener {
-            if(provider!!.hasMessage){
-                provider?.hideCircle()
+        //有毒啊这里！！！4.4 居然不能直接provider.setListener{}
+        provider!!.setListener(object: ActionProviderListener{
+            override fun onClick(p0: View?) {
+                if(provider!!.hasMessage){
+                    provider!!.hideCircle()
+                }
+                startMyBroadcast()
             }
-            startMyBroadcast()
-        }
-
+        })
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -171,9 +175,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
-        when (item?.itemId) {
+        when (item.itemId) {
             R.id.nav_census -> {
-                // Handle the camera action
+                val i = Intent(this,RecordActivity::class.java)
+                startActivity(i)
+                overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
             }
             R.id.nav_course->{
 
