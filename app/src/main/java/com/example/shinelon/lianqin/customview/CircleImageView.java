@@ -53,6 +53,12 @@ public class CircleImageView extends ImageView {
         canvas.drawCircle(mRadius,mRadius,mRadius,mPaint);
     }
 
+    /**
+     * canvas.drawBitmap()直接画图片，可以用matrix
+     * canvas.drawPath()直接按路径画
+     * canvas.drawXXX()直接画图形，可以用Shader加渲染效果，如渐变，和附加图片渲染BitmapShader
+     * canvas.clipPath()按路径裁剪画布
+     */
     public void initView(){
         mPaint = new Paint();
         matrix = new Matrix();
