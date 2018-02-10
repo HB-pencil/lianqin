@@ -1,5 +1,6 @@
 package com.example.shinelon.lianqin.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.shinelon.lianqin.R
+import com.example.shinelon.lianqin.StudentDetailsActivity
 import com.example.shinelon.lianqin.model.StudentSim
 import kotlinx.android.synthetic.main.list_class_details.view.*
 import kotlinx.android.synthetic.main.recycler_class_details.view.*
@@ -44,7 +46,9 @@ class CLassDetailsFragment: Fragment() {
         val button = v.class_details_button
         init {
             button.setOnClickListener{
-
+                val i = Intent(activity,StudentDetailsActivity::class.java)
+                startActivity(i)
+                activity!!.overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
             }
         }
     }
