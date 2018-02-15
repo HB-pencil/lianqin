@@ -11,6 +11,8 @@ import android.view.MotionEvent
 import android.widget.RelativeLayout
 import com.example.shinelon.lianqin.customview.CameraView
 import com.example.shinelon.lianqin.customview.IndicateView
+import com.example.shinelon.lianqin.presenter.PhotoPresenter
+import com.example.shinelon.lianqin.view.PhotoView
 import kotlinx.android.synthetic.main.camera_layout.*
 import org.jetbrains.anko.centerInParent
 
@@ -18,11 +20,12 @@ import org.jetbrains.anko.centerInParent
  * Created by HB on 2017/12/11.自定义相机Activity
  */
 @SuppressWarnings("deprecation")
-class CameraActivity: AppCompatActivity(){
+class CameraActivity: AppCompatActivity(),PhotoView{
     private var camera: Camera? = null
     private var preview: CameraView? = null
     private var indicateView: IndicateView? = null
     private var cameraId = 0
+    private var prensenter: PhotoPresenter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +39,10 @@ class CameraActivity: AppCompatActivity(){
             if (cameraId == 0) cameraId = 1 else cameraId = 0
             initCamera(cameraId)
         }
+        prensenter?.setView(this)
+    }
+
+    override fun init() {
     }
 
     fun initCamera(id: Int){
@@ -83,6 +90,7 @@ class CameraActivity: AppCompatActivity(){
         super.onPause()
         Log.w("onPause()","success")
         stopCamera()
+        prensenter?.clearView()
     }
 
 

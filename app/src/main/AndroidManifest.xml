@@ -58,6 +58,8 @@
             android:parentActivityName=".RecordDetailsActivity"/>
         <activity android:name=".StudentDetailsActivity"
             android:parentActivityName=".RecordClassDetailsActivity"/>
+        <activity android:name=".AddFaceActivity"
+            android:parentActivityName=".ChooseCalssActivity"/>
     </application>
 
 </manifest>

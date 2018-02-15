@@ -7,6 +7,4 @@ import android.view.MenuItem
  */
 
 interface MainView : BaseView{
-    fun itemSelted(item: MenuItem?)
-    fun itemNavSelected(item: MenuItem?)
 }

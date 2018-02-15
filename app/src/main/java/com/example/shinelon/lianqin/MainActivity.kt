@@ -23,6 +23,8 @@ import android.widget.Toast
 import com.example.shinelon.lianqin.actionProviders.messageActionProvider
 import com.example.shinelon.lianqin.helper.PermissionsChecker
 import com.example.shinelon.lianqin.listener.ActionProviderListener
+import com.example.shinelon.lianqin.presenter.MainPresenter
+import com.example.shinelon.lianqin.view.MainView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -30,14 +32,20 @@ import kotlinx.android.synthetic.main.content_main.*
 /**
  * created by HB,主界面Activity,作为View
  */
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,MainView{
     private var provider: messageActionProvider? = null
     private val mChecker = PermissionsChecker()
     private var dialog: AlertDialog? = null
+    private var presenter: MainPresenter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+
+        presenter = MainPresenter()
+        presenter?.setView(this)
+        presenter?.init()
+
         fab.setOnClickListener { view ->
             val i = Intent(this,NoteActivity::class.java)
             startActivity(i)
@@ -60,6 +68,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         nav_view.setNavigationItemSelectedListener(this)
     }
 
+    override fun init() {
+
+    }
+
     /**
      * 检测有无相机
      */
@@ -76,6 +88,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onStop() {
         super.onStop()
         dialog?.dismiss()
+        presenter?.clearView()
     }
 
 

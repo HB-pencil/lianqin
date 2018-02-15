@@ -83,7 +83,7 @@ class ChooseCalssActivity: AppCompatActivity(){
         init {
             v.setOnClickListener {
                 Toast.makeText(v.context,"点击了班级：${v.class_which.text}",Toast.LENGTH_SHORT).show()
-                jumpToCamera()
+                jumpToSelect()
             }
         }
     }
@@ -91,8 +91,8 @@ class ChooseCalssActivity: AppCompatActivity(){
     /**
      * 跳转到识别界面
      */
-    fun jumpToCamera(){
-        val intent = Intent(this,CameraActivity::class.java)
+    fun jumpToSelect(){
+        val intent = Intent(this,AddFaceActivity::class.java)
         startActivity(intent)
         overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
     }
