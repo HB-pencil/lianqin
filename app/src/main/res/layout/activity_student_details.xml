@@ -65,7 +65,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:gravity="end"
-                android:text="专业：" />
+                android:text="班级：" />
             <TextView
                 android:id="@+id/student_major"
                 android:layout_margin="5dp"
@@ -74,7 +74,7 @@
                 android:layout_weight="1.5"
                 android:layout_height="wrap_content"
                 android:gravity="start"
-                tools:text="医学信息工程" />
+                tools:text="15医学信息工程" />
         </LinearLayout>
 
     </LinearLayout>

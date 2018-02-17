@@ -56,7 +56,7 @@ class MainPresenter : BasePresenter {
         val respon = service.getToken("client_credentials","FahVw2KyLbTOpSgbWREavdRA","U8uUpwIsrnBCVIOiMyoai3ObiGvWMVfy")
         respon.enqueue(object: Callback<Token>{
             override fun onResponse(call: Call<Token>?, response: Response<Token>?) {
-                Log.e("onResponse-头",response?.headers().toString())
+                Log.e("onResponse",""+response?.body()?.expires_in)
                 val result = response?.body()
                 Log.e("result",response?.body().toString())
 

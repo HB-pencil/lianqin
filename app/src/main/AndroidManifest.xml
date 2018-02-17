@@ -60,6 +60,19 @@
             android:parentActivityName=".RecordClassDetailsActivity"/>
         <activity android:name=".AddFaceActivity"
             android:parentActivityName=".ChooseCalssActivity"/>
+        <activity android:name=".RegisterOrUpdateFaceActivity"
+            android:parentActivityName=".AddFaceActivity"/>
+
+        <provider
+            android:authorities="com.example.shinelon.lianqin.myProvider"
+            android:exported="false"
+            android:name="android.support.v4.content.FileProvider"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/paths_file"/>
+        </provider>
+
     </application>
 
 </manifest>

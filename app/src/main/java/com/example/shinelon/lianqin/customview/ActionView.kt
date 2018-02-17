@@ -32,6 +32,7 @@ class ActionView: View{
         super.onDraw(canvas)
         drawItem1(canvas)
         drawItem2(canvas)
+        drawItem3(canvas)
     }
 
     fun drawItem1(canvas: Canvas?){
@@ -55,6 +56,26 @@ class ActionView: View{
     }
 
     fun drawItem2(canvas: Canvas?){
+        paint.color = Color.parseColor(color1)
+        paint.style = Paint.Style.FILL
+        canvas?.drawRect(0F,measuredHeight/8*3F,measuredWidth.toFloat(),measuredHeight/8*5F,paint)
+
+        paint.strokeWidth = 2F
+        paint.textSize = 50F
+        paint.textAlign = Paint.Align.CENTER
+
+        val font = paint.fontMetrics
+        val h = (font.descent - font.ascent)/2
+        val t = h - font.descent
+        Log.d("字体下移",t.toString())
+        val x = measuredWidth/2
+        val y = measuredHeight/2 + t
+        paint.color = Color.WHITE
+
+        canvas?.drawText("我要重置",x.toFloat(),y,paint)
+    }
+
+    fun drawItem3(canvas: Canvas?){
         paint.color = Color.parseColor(color1)
         paint.style = Paint.Style.FILL
         canvas?.drawRect(0F,(measuredHeight/4 * 3).toFloat(),measuredWidth.toFloat(),measuredHeight.toFloat(),paint)

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/activity_register_face_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:background="@color/colorPrimary"/>
+
+    <FrameLayout
+        android:id="@+id/face_temp1"
+        android:layout_width="160dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="100dp"
+        android:layout_centerHorizontal="true">
+        <com.example.shinelon.lianqin.customview.RectImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"/>
+        <ImageView
+            android:id="@+id/student_image_register"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            android:padding="2dp"/>
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/face_temp2"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/face_temp1"
+        android:layout_centerHorizontal="true">
+        <TextView
+            android:layout_margin="5dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="学号：" />
+        <EditText
+            android:id="@+id/student_id_face"
+            android:layout_margin="5dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_marginEnd="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            tools:text="2015000000" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/face_temp3"
+        android:layout_below="@+id/face_temp2"
+        android:layout_width="250dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_margin="5dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="姓名：" />
+        <EditText
+            android:id="@+id/student_name_face"
+            android:layout_margin="5dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            tools:text="陈浩斌" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/face_temp4"
+        android:layout_below="@+id/face_temp3"
+        android:layout_width="250dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_margin="5dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:text="班级：" />
+        <EditText
+            android:id="@+id/student_major_face"
+            android:layout_margin="5dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            tools:text="15医学信息工程" />
+    </LinearLayout>
+    <Button
+        android:id="@+id/take_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/face_temp4"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:background="@drawable/selected_state_bt"
+        android:text="拍照"/>
+    <Button
+        android:id="@+id/select_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/face_temp4"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/selected_state_bt"
+        android:text="选图"/>
+    <Button
+        android:id="@+id/finish_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/face_temp4"
+        android:layout_centerInParent="true"
+        android:background="@drawable/selected_state_bt"
+        android:text="点击完成"/>
+
+
+</RelativeLayout>

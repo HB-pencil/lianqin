@@ -33,8 +33,8 @@ class ChooseCalssActivity: AppCompatActivity(){
         setSupportActionBar(choose_activity_toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val c1 = ClassInfos("学期：17-1","班级：16计算机")
-        val c2 = ClassInfos("17-1","16医工")
+        val c1 = ClassInfos("学期：17-1","16计算机")
+        val c2 = ClassInfos("17-1","15医工")
         val mList = mutableListOf<ClassInfos>(c1,c2)
         choose_recycler_view.layoutManager = LinearLayoutManager(this)
         choose_recycler_view.adapter = ChooseAdapter(mList)
@@ -82,8 +82,8 @@ class ChooseCalssActivity: AppCompatActivity(){
         val classText = v.class_which
         init {
             v.setOnClickListener {
-                Toast.makeText(v.context,"点击了班级：${v.class_which.text}",Toast.LENGTH_SHORT).show()
-                jumpToSelect()
+                Toast.makeText(v.context,"点击了班级：${classText.text}",Toast.LENGTH_SHORT).show()
+                jumpToSelect(classText.text.toString())
             }
         }
     }
@@ -91,8 +91,13 @@ class ChooseCalssActivity: AppCompatActivity(){
     /**
      * 跳转到识别界面
      */
-    fun jumpToSelect(){
+    fun jumpToSelect(banji: String){
         val intent = Intent(this,AddFaceActivity::class.java)
+        Log.w("班级",banji)
+        when(banji){
+            "16计算机"-> intent.putExtra("banji","16_jisuanji")
+            "15医工" -> intent.putExtra("banji","15_yigong")
+        }
         startActivity(intent)
         overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
     }
