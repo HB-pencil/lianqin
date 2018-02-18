@@ -168,7 +168,7 @@ class RegisterOrUpdateFaceActivity: AppCompatActivity(),RegiOrUpdaView{
         var str = ""
         if (type=="append") str = "注册/追加"
         else str = "重置"
-        val dialog = MyDialog.newInstance(str)
+        val dialog = MyDialog.newInstance(str+"成功！")
         dialog.show(supportFragmentManager,"")
     }
 
