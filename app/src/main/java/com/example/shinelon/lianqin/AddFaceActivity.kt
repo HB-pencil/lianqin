@@ -41,9 +41,18 @@ class AddFaceActivity: AppCompatActivity(){
             overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
         }
 
+        activity_add_gengxin.setOnClickListener{
+            val i = Intent(this,RegisterOrUpdateFaceActivity::class.java)
+            i.putExtra("group_id",group_id)
+            i.putExtra("action_type","replace")
+            startActivity(i)
+            overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
+        }
+
         activity_add_zhuce.setOnClickListener{
             val i = Intent(this,RegisterOrUpdateFaceActivity::class.java)
             i.putExtra("group_id",group_id)
+            i.putExtra("action_type","append")
             startActivity(i)
             overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
         }

@@ -24,30 +24,15 @@ class MainPresenter : BasePresenter {
 
     override fun setView(baseView: BaseView?) {
         mainView = baseView as MainView
+        setTokent()
     }
 
     fun init(){
         mainView?.init()
-        checkTokenAndReturn()
-    }
-
-    fun checkTokenAndReturn(){
-        val pre = PreferenceManager.getDefaultSharedPreferences(mainView as? Context)
-        val token = pre.getString("token","没有")
-        val time = pre.getLong("time",0L)
-        if ("没有".equals("token")&&(time==0L)){
-            getBtokentAndSave()
-        }else{
-            val current = System.currentTimeMillis()
-            val days = (current - time)/1000F/3600/24
-            if (days>=15F) getBtokentAndSave()
-            else Log.w("检查","token没有过期:$token")
-        }
-        AllNoteInfos.token = token
     }
 
 
-    fun getBtokentAndSave(){
+    fun setTokent(){
         val retrofit: Retrofit = Retrofit.Builder()
                 .baseUrl("https://aip.baidubce.com/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -58,14 +43,8 @@ class MainPresenter : BasePresenter {
             override fun onResponse(call: Call<Token>?, response: Response<Token>?) {
                 Log.e("onResponse",""+response?.body()?.expires_in)
                 val result = response?.body()
+                AllNoteInfos.token = result?.access_token
                 Log.e("result",response?.body().toString())
-
-                val pre = PreferenceManager.getDefaultSharedPreferences(mainView as? Context)
-                val edit = pre.edit()
-                edit.putString("token",result?.access_token)
-                val time = System.currentTimeMillis()
-                edit.putLong("time",time)
-                edit.apply()
             }
 
             override fun onFailure(call: Call<Token>?, t: Throwable?) {

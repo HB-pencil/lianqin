@@ -5,5 +5,5 @@ package com.example.shinelon.lianqin.model
  */
 object AllNoteInfos {
     var list = mutableListOf<NoteInfos>()
-    var token: String = ""
+    var token: String?= ""
 }

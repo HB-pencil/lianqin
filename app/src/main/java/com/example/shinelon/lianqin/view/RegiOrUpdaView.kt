@@ -1,5 +1,6 @@
 package com.example.shinelon.lianqin.view
 
+import android.app.Dialog
 import com.example.shinelon.lianqin.view.BaseView
 
 /**
@@ -10,5 +11,5 @@ interface RegiOrUpdaView:BaseView{
 
     }
     fun showSuccessDialog()
-    fun showFailureDialog()
+    fun showFailureDialog(msg: String)
 }

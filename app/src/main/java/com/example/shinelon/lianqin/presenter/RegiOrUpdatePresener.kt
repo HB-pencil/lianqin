@@ -22,11 +22,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 class RegiOrUpdatePresener: BasePresenter{
     var view: RegiOrUpdaView? = null
     override fun setView(baseView: BaseView?) {
-        view = baseView as? RegiOrUpdaView
+        view = baseView as RegiOrUpdaView
 
     }
 
-    fun registerFace(group_id: String,uid: String,user_info: String,image: String){
+    fun registerFace(group_id: String,uid: String,user_info: String,image: String,type: String){
         val retrofit = Retrofit.Builder()
                 .baseUrl("https://aip.baidubce.com/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -36,24 +36,24 @@ class RegiOrUpdatePresener: BasePresenter{
         val _uid = RequestBody.create(null,uid)
         val _user_info = RequestBody.create(null,user_info)
         val _group_id = RequestBody.create(null,group_id)
-        val _actiontype = RequestBody.create(null,"append")
+        val _actiontype = RequestBody.create(null,type)
 
         val _image = RequestBody.create(null,image)
         val call = service.registerFace(token,_uid,_user_info,_group_id,_image,_actiontype)
         call.enqueue(object :Callback<Register>{
             override fun onResponse(call: Call<Register>?, response: Response<Register>?) {
-                Log.e("onResponse","${response?.code()}")
+                Log.e("onResponse",response?.body().toString())
                 val result = response?.body()
-                if (result == null){
-                    view?.showFailureDialog()
+                if (result!=null && result.error_msg==null){
+                    view!!.showSuccessDialog()
                 }else{
-                    view?.showSuccessDialog()
+                    view!!.showFailureDialog(result!!.error_msg)
                 }
             }
 
             override fun onFailure(call: Call<Register>?, t: Throwable?) {
                 Log.e("onFailure",t.toString())
-                view?.showFailureDialog()
+                view?.showFailureDialog("")
             }
         })
     }

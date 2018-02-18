@@ -2,6 +2,7 @@ package com.example.shinelon.lianqin
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
@@ -17,6 +18,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Base64
 import android.util.Log
 import android.widget.Toast
+import com.example.shinelon.lianqin.fragment.MyDialog
 import com.example.shinelon.lianqin.presenter.RegiOrUpdatePresener
 import com.example.shinelon.lianqin.view.RegiOrUpdaView
 import kotlinx.android.synthetic.main.activity_register_fupdate_ace.*
@@ -34,6 +36,7 @@ class RegisterOrUpdateFaceActivity: AppCompatActivity(),RegiOrUpdaView{
     var image: String = ""
     var prensener: RegiOrUpdatePresener? = null
     var group_id: String = ""
+    var type = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +46,8 @@ class RegisterOrUpdateFaceActivity: AppCompatActivity(),RegiOrUpdaView{
         prensener = RegiOrUpdatePresener()
         prensener?.setView(this)
         group_id = intent.getStringExtra("group_id")
+        type = intent.getStringExtra("action_type")
+
         if (!pfile.exists()) pfile.mkdirs()
         take_photo.setOnClickListener {
             val file = File(pfile,
@@ -81,8 +86,8 @@ class RegisterOrUpdateFaceActivity: AppCompatActivity(),RegiOrUpdaView{
             val major = student_major_face.text.toString()
             val str = "姓名为"+name+"班级为"+major
             if(num!=""&&name!=""&&major!=""){
-                Log.w("注册前group信息",group_id)
-                prensener?.registerFace(group_id,num,str,image)
+                Log.w("注册/更新前group信息",group_id)
+                prensener?.registerFace(group_id,num,str,image,type)
             }else{
                 Toast.makeText(this,"资料不能留空！",Toast.LENGTH_SHORT).show()
             }
@@ -159,27 +164,20 @@ class RegisterOrUpdateFaceActivity: AppCompatActivity(),RegiOrUpdaView{
         prensener?.clearView()
     }
 
-    override fun showSuccessDialog() {
-        val dialog = AlertDialog.Builder(this)
-                .setMessage("注册成功！")
-                .setPositiveButton("确定"){
-                    dialogInterface, i ->
-                }
-                .create()
-        dialog.setCanceledOnTouchOutside(false)
-        dialog.setCancelable(false)
-        dialog.show()
+    override fun showSuccessDialog(){
+        var str = ""
+        if (type=="append") str = "注册/追加"
+        else str = "重置"
+        val dialog = MyDialog.newInstance(str)
+        dialog.show(supportFragmentManager,"")
     }
 
-    override fun showFailureDialog() {
-        val dialog = AlertDialog.Builder(this)
-                .setMessage("注册失败，请重试！")
-                .setPositiveButton("确定"){
-                    dialogInterface, i ->
-                }
-                .create()
-        dialog.setCanceledOnTouchOutside(false)
-        dialog.setCancelable(false)
-        dialog.show()
+    override fun showFailureDialog(msg: String){
+        var str = ""
+        if (type=="append") str = "注册/追加"
+        else str = "重置"
+        val dialog = MyDialog.newInstance(str+"失败，请重试！错误为："+msg)
+        dialog.show(supportFragmentManager,"")
     }
+
 }
