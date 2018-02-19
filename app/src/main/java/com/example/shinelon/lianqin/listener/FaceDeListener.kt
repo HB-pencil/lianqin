@@ -16,7 +16,9 @@ class FaceDeListener(val activity: CameraActivity,val cameraView: CameraView): C
         faces?.forEach {
             Log.e("rect","左${it.rect.left}顶${it.rect.top}右${it.rect.right}下${it.rect.bottom}")
             cameraView.isFace = true
-            activity.addView(IndicateView(activity,it.rect))
+            if(cameraView.mark <= 3){
+                activity.addFaceView(IndicateView(activity,it.rect))
+            }
         }
     }
 }

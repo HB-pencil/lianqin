@@ -48,7 +48,7 @@ class IndicateView: View {
         canvas?.save()
         canvas?.translate(width/2F,height/2F)
         mPaint.style = Paint.Style.FILL
-        canvas?.drawText("检测到人脸",rectf!!.left+rectf!!.width()/2,rectf!!.top-20,mPaint)
+        canvas?.drawText("人脸识别中",rectf!!.left+rectf!!.width()/2,rectf!!.top-20,mPaint)
         mPaint.strokeWidth = 5F
         mPaint.style = Paint.Style.STROKE
         canvas?.drawRect(rectf,mPaint)

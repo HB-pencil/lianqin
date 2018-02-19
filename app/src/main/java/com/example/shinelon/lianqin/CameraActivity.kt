@@ -2,13 +2,16 @@ package com.example.shinelon.lianqin
 
 import android.content.Intent
 import android.hardware.Camera
+import android.media.AudioManager
+import android.media.SoundPool
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.MotionEvent
 import android.widget.RelativeLayout
+import android.widget.Toast
 import com.example.shinelon.lianqin.customview.CameraView
 import com.example.shinelon.lianqin.customview.IndicateView
 import com.example.shinelon.lianqin.presenter.PhotoPresenter
@@ -26,28 +29,37 @@ class CameraActivity: AppCompatActivity(),PhotoView{
     private var indicateView: IndicateView? = null
     private var cameraId = 0
     private var prensenter: PhotoPresenter? = null
+    private var group_id = ""
+    private var soundPool: SoundPool? = null
+    private var id_1: Int = 0
+    private var id_2 = 0
+    private val handler = Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.camera_layout)
         setSupportActionBar(camera_toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        initCamera(cameraId)
-
+        prensenter = PhotoPresenter()
+        group_id = intent.getStringExtra("group_id")
+        initCamera(cameraId,group_id)
+        soundPool = SoundPool(10,AudioManager.STREAM_MUSIC,0)
+        id_1 = soundPool!!.load(this,R.raw.success,1)
+        id_2 = soundPool!!.load(this,R.raw.failure,1)
         turn_camera.setOnClickListener{
             stopCamera()
             if (cameraId == 0) cameraId = 1 else cameraId = 0
-            initCamera(cameraId)
+            initCamera(cameraId,group_id)
         }
-        prensenter?.setView(this)
+        prensenter!!.setView(this)
     }
 
     override fun init() {
     }
 
-    fun initCamera(id: Int){
+    fun initCamera(id: Int,group_id: String){
         camera = getCameraInstance(id)
-        preview = CameraView(this,camera)
+        preview = CameraView(this,camera,group_id)
         val dm = resources.displayMetrics
         val w = dm.widthPixels
         val h = dm.heightPixels
@@ -59,6 +71,7 @@ class CameraActivity: AppCompatActivity(),PhotoView{
         val scale = size!!.height.toFloat()/size.width
         p.width = (scale * p.height).toInt()
         Log.e("TIPS","surfaceView的比例$scale")
+
         camera_container.layoutParams = p
         camera_container.addView(preview)
     }
@@ -79,7 +92,7 @@ class CameraActivity: AppCompatActivity(),PhotoView{
      */
     override fun onResume() {
         super.onResume()
-        if (camera == null) initCamera(cameraId)
+        if (camera == null) initCamera(cameraId,group_id)
         Log.w("onResume","success")
     }
 
@@ -106,10 +119,22 @@ class CameraActivity: AppCompatActivity(),PhotoView{
         return camera!!
     }
 
-    fun addView(indicate: IndicateView){
+    /**
+     * 检测到人脸后选取图片识别时的状态框
+     */
+    override fun addFaceView(indicate: IndicateView){
         if(indicateView!=null) camera_container.removeView(indicateView)
         camera_container.addView(indicate)
         indicateView = indicate
+    }
+
+    /**
+     * 识别结果出来后要移除方框
+     */
+    override fun removeFaceView(){
+        if(indicateView!=null) camera_container.removeView(indicateView)
+        indicateView = null
+        preview!!.mark = 10
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -128,5 +153,25 @@ class CameraActivity: AppCompatActivity(),PhotoView{
         val intent = Intent(this,ManualActivity::class.java)
         startActivity(intent)
         overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
+    }
+
+    fun startRecognize(image: String,group_id: String){
+        prensenter!!.startRecognize(image,group_id)
+    }
+
+    override fun showToast(msg: String) {
+        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showSuccessSound() {
+        soundPool?.play(id_1,0.5F,0.5F,1,0,1F)
+    }
+
+    override fun showFailureSound() {
+        soundPool?.play(id_2,0.5F,0.5F,1,0,1F)
+    }
+
+    override fun resetMark() {
+        handler.postDelayed({preview?.resetMark()},1200)
     }
 }

@@ -3,6 +3,7 @@ package com.example.shinelon.lianqin.helper
 import com.example.shinelon.lianqin.model.IdentifyFace
 import com.example.shinelon.lianqin.model.Register
 import com.example.shinelon.lianqin.model.Token
+import io.reactivex.Observable
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -34,7 +35,7 @@ interface RetrofitHelper {
      */
     @Multipart
     @POST("rest/2.0/face/v2/identify")
-    fun recognizeFace(@Part("access_token") token: ResponseBody,@Part("group_id") group_id:ResponseBody,@Part("image") image:Array<Byte>): Call<IdentifyFace>
+    fun recognizeFace(@Part("access_token")token: RequestBody,@Part("group_id")group_id: RequestBody,@Part("image")image: RequestBody): Observable<IdentifyFace>
 
 
 }

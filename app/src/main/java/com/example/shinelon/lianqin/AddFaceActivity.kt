@@ -37,6 +37,7 @@ class AddFaceActivity: AppCompatActivity(){
 
         activity_add_kaoqin.setOnClickListener{
             val i = Intent(this,CameraActivity::class.java)
+            i.putExtra("group_id",group_id)
             startActivity(i)
             overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
         }

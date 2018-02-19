@@ -26,7 +26,7 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 
 /**
- * Created by Shinelon on 2018/2/17.
+ * Created by HB on 2018/2/17.
  */
 class RegisterOrUpdateFaceActivity: AppCompatActivity(),RegiOrUpdaView{
 
@@ -68,6 +68,7 @@ class RegisterOrUpdateFaceActivity: AppCompatActivity(),RegiOrUpdaView{
             Log.e("拍照uri",uri.toString())
             //i.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
             //i.flags = Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+
             startActivityForResult(i,0)
             overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
             sendUpdateInfo(uri)
@@ -91,7 +92,6 @@ class RegisterOrUpdateFaceActivity: AppCompatActivity(),RegiOrUpdaView{
             }else{
                 Toast.makeText(this,"资料不能留空！",Toast.LENGTH_SHORT).show()
             }
-
         }
 
     }
@@ -103,10 +103,9 @@ class RegisterOrUpdateFaceActivity: AppCompatActivity(),RegiOrUpdaView{
                 val bitmap = BitmapFactory.decodeFile(path)
                 student_image_register.setImageBitmap(bitmap)
                 val out = ByteArrayOutputStream()
-                bitmap.compress(Bitmap.CompressFormat.JPEG,50,out)
+                bitmap.compress(Bitmap.CompressFormat.JPEG,70,out)
                 val array = out.toByteArray()
                 image = Base64.encodeToString(array,Base64.NO_WRAP)
-
                 Log.e("拍照图片",image)
             }
             1 -> if(resultCode == Activity.RESULT_OK){
@@ -116,7 +115,6 @@ class RegisterOrUpdateFaceActivity: AppCompatActivity(),RegiOrUpdaView{
                 bitmap.compress(Bitmap.CompressFormat.JPEG,50,out)
                 val array = out.toByteArray()
                 image = Base64.encodeToString(array,Base64.NO_WRAP)
-
                 Log.e("选取图片大小",image)
             }
         }
