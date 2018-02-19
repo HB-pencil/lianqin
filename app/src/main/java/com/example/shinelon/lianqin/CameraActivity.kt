@@ -172,6 +172,7 @@ class CameraActivity: AppCompatActivity(),PhotoView{
     }
 
     override fun resetMark() {
+        preview!!.isFace = false
         handler.postDelayed({preview?.resetMark()},1200)
     }
 }
