@@ -52,7 +52,7 @@ class ActionView: View{
         val y = measuredHeight/8F + t
         paint.color = Color.WHITE
 
-        canvas?.drawText("我要考勤",x.toFloat(),y,paint)
+        canvas?.drawText("我要进行考勤",x.toFloat(),y,paint)
     }
 
     fun drawItem2(canvas: Canvas?){
@@ -72,7 +72,7 @@ class ActionView: View{
         val y = measuredHeight/2 + t
         paint.color = Color.WHITE
 
-        canvas?.drawText("我要重置",x.toFloat(),y,paint)
+        canvas?.drawText("我要重置照片",x.toFloat(),y,paint)
     }
 
     fun drawItem3(canvas: Canvas?){
@@ -91,7 +91,7 @@ class ActionView: View{
         val y = measuredHeight/8*7F + t
         paint.color = Color.WHITE
 
-        canvas?.drawText("人脸注册",x.toFloat(),y,paint)
+        canvas?.drawText("注册追加人脸",x.toFloat(),y,paint)
     }
 
 }

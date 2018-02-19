@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black">#FFFFFF</color>
+    <color name="cardview">#1e1e1e</color>
+    <color name="selected">#333333</color>
+    <color name="unselected">#000000</color>
 </resources>
