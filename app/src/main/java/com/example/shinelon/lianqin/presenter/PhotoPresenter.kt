@@ -57,12 +57,23 @@ class PhotoPresenter: BasePresenter {
 
                     override fun onNext(t: IdentifyFace){
                         Log.e("Rxjava","onNext  $t")
-                        if (t.result_num == 1 && t.result[0].scores[0]>80){
-                            Log.e("Rxjava","onNext匹配分数为"+t.result[0].scores[0])
-                            photoView?.showToast("识别成功，已考勤！")
-                            photoView?.showSuccessSound()
-                            photoView?.removeFaceView() //移除方框
-                            photoView?.resetMark()      //1.5秒后重置人脸识别
+                        if (t.result_num >= 1 ){
+                            t.result.forEach {
+                                if(it.scores[0]>=80){
+                                    Log.e("Rxjava","onNext匹配分数为"+it.scores[0])
+                                    photoView?.showToast("识别成功，已考勤！")
+                                    photoView?.showSuccessSound()
+                                    photoView?.removeFaceView() //移除方框
+                                    photoView?.resetMark()//1.5秒后重置人脸识别
+                                    return //退出判断到最外层函数
+                                }
+                            }
+
+                            Log.e("Rxjava","onNext匹配阈值小于80")
+                            photoView?.showToast("识别出错，请重试！")
+                            photoView?.showFailureSound()
+                            photoView?.removeFaceView()
+                            photoView?.resetMark()
                         }else{
                             Log.e("Rxjava","onNext没有匹配")
                             photoView?.showToast("识别出错，请重试！")
