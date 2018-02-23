@@ -1,8 +1,10 @@
 package com.example.shinelon.lianqin
 
 import android.app.Application
+import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.support.v7.app.AppCompatDelegate
+import com.example.shinelon.lianqin.helper.CrashHandler
 import com.example.shinelon.lianqin.helper.NotesSQLiteHelper
 
 /**
@@ -15,6 +17,6 @@ class MyApplication: Application() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
         val dh = NotesSQLiteHelper(this)
         db = dh.writableDatabase
+        CrashHandler.setC(this)
     }
-
 }
