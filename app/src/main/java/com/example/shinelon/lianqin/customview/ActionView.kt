@@ -50,7 +50,7 @@ class ActionView: View{
         Log.d("字体下移",t.toString())
         val x = measuredWidth/2
         val y = measuredHeight/8F + t
-        paint.color = Color.WHITE
+        paint.color = Color.BLACK
 
         canvas?.drawText("我要进行考勤",x.toFloat(),y,paint)
     }
@@ -70,7 +70,7 @@ class ActionView: View{
         Log.d("字体下移",t.toString())
         val x = measuredWidth/2
         val y = measuredHeight/2 + t
-        paint.color = Color.WHITE
+        paint.color = Color.BLACK
 
         canvas?.drawText("我要重置照片",x.toFloat(),y,paint)
     }
@@ -89,7 +89,7 @@ class ActionView: View{
         val t = h - font.descent
         val x = measuredWidth/2
         val y = measuredHeight/8*7F + t
-        paint.color = Color.WHITE
+        paint.color = Color.BLACK
 
         canvas?.drawText("注册追加人脸",x.toFloat(),y,paint)
     }

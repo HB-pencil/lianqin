@@ -25,13 +25,26 @@ class RecordClassDetailsActivity: AppCompatActivity() {
         setContentView(R.layout.activity_record_calss_details)
         setSupportActionBar(activity_record_class_details_toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setTitle("2018-10-12 第8周")
+        val details = intent.getStringExtra("details")
+        supportActionBar?.title = details
+
+        val total = intent.getStringExtra("total")
+        val chuqin = intent.getStringExtra("quc")
+        val queqin = intent.getStringExtra("que")
+        val chidao = intent.getStringExtra("chi")
+        val qingjia = intent.getStringExtra("qing")
+
+        text_class_details_number.text = total
+        textchuqin.text = chuqin
+        textqueqin.text = queqin
+        textqinjia.text = qingjia
+        textchidao.text = chidao
 
         val fm = supportFragmentManager
 
         val fg1 = CLassDetailsFragment.newInstance(arrayListOf(StudentSim("周嘉炜","2015000000")))
-        val fg2 = CLassDetailsFragment.newInstance(arrayListOf(StudentSim("周嘉炜","2015111111")))
-        val fg3 = CLassDetailsFragment.newInstance(arrayListOf(StudentSim("周嘉炜","2015222222")))
+        val fg2 = CLassDetailsFragment.newInstance(arrayListOf(StudentSim("小红","2015111111")))
+        val fg3 = CLassDetailsFragment.newInstance(arrayListOf(StudentSim("小明","2015222222")))
         val list = mutableListOf<Fragment>(fg1,fg2,fg3)
 
         val pagerAdapter = ViewPagerAdapter(list,fm)

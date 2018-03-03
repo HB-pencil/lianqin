@@ -33,9 +33,10 @@ class ChooseCalssActivity: AppCompatActivity(){
         setSupportActionBar(choose_activity_toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val c1 = ClassInfos("学期：17-1","16计算机")
-        val c2 = ClassInfos("17-1","15医工")
-        val mList = mutableListOf<ClassInfos>(c1,c2)
+        val c1 = ClassInfos("17-1","16计算机科学与技术")
+        val c2 = ClassInfos("17-1","15医学信息工程")
+        val c3 = ClassInfos("17-1","16医学信息工程")
+        val mList = mutableListOf<ClassInfos>(c1,c2,c3)
         choose_recycler_view.layoutManager = LinearLayoutManager(this)
         choose_recycler_view.adapter = ChooseAdapter(mList)
 
@@ -95,8 +96,9 @@ class ChooseCalssActivity: AppCompatActivity(){
         val intent = Intent(this,AddFaceActivity::class.java)
         Log.w("班级",banji)
         when(banji){
-            "16计算机"-> intent.putExtra("banji","16_jisuanji")
-            "15医工" -> intent.putExtra("banji","15_yigong")
+            "16计算机科学与技术"-> intent.putExtra("banji","16_jisuanji")
+            "15医学信息工程" -> intent.putExtra("banji","15_yigong")
+            "16医学信息工程" -> intent.putExtra("banji","16_yigong")
         }
         startActivity(intent)
         overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)

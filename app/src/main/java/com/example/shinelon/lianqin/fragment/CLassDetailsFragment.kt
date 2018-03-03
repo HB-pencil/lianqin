@@ -13,6 +13,7 @@ import com.example.shinelon.lianqin.StudentDetailsActivity
 import com.example.shinelon.lianqin.model.StudentSim
 import kotlinx.android.synthetic.main.list_class_details.view.*
 import kotlinx.android.synthetic.main.recycler_class_details.view.*
+import kotlin.properties.Delegates
 
 /**
  * Created by Shinelon on 2018/2/9.
@@ -44,9 +45,11 @@ class CLassDetailsFragment: Fragment() {
     inner class ViewHolder(v: View): RecyclerView.ViewHolder(v){
         val name = v.class_details_name
         val button = v.class_details_button
+        var id by Delegates.notNull<String>()
         init {
             button.setOnClickListener{
                 val i = Intent(activity,StudentDetailsActivity::class.java)
+                i.putExtra("studentId",id)
                 startActivity(i)
                 activity!!.overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
             }
@@ -61,6 +64,7 @@ class CLassDetailsFragment: Fragment() {
 
         override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
             holder?.name?.text = list[position].name
+            holder?.id = list[position].id
         }
 
         override fun getItemCount() = list.size

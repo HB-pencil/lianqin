@@ -24,9 +24,10 @@ class RecordActivity: AppCompatActivity() {
         setContentView(R.layout.activity_record)
         setSupportActionBar(activity_record_toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        val c1 = ClassInfos("学期：17-1","班级：16计算机")
-        val c2 = ClassInfos("17-1","16医工")
-        val mList = mutableListOf<ClassInfos>(c1,c2)
+        val c1 = ClassInfos("17-1","16计算机科学与技术")
+        val c2 = ClassInfos("17-1","16医学信息工程")
+        val c3 = ClassInfos("17-1","15医学信息工程")
+        val mList = mutableListOf<ClassInfos>(c1,c2,c3)
         recycler_record.layoutManager = LinearLayoutManager(this)
         recycler_record.adapter = RecordAdapter(mList)
     }
@@ -36,7 +37,7 @@ class RecordActivity: AppCompatActivity() {
         init {
             v.setOnClickListener {
                 Toast.makeText(v.context,"点击了班级：${classText.text}", Toast.LENGTH_SHORT).show()
-                jumpToRecordDetails()
+                jumpToRecordDetails(classText.text.toString())
             }
         }
     }
@@ -44,8 +45,9 @@ class RecordActivity: AppCompatActivity() {
     /**
      * 跳转到详细班级情况界面
      */
-    fun jumpToRecordDetails(){
+    fun jumpToRecordDetails(semester: String){
         val intent = Intent(this,RecordDetailsActivity::class.java)
+        intent.putExtra("semester",semester)
         startActivity(intent)
         overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
     }

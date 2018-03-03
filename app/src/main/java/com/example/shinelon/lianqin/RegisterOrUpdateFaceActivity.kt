@@ -24,6 +24,7 @@ import com.example.shinelon.lianqin.view.RegiOrUpdaView
 import kotlinx.android.synthetic.main.activity_register_fupdate_ace.*
 import java.io.ByteArrayOutputStream
 import java.io.File
+import kotlin.properties.Delegates
 
 /**
  * Created by HB on 2018/2/17.
@@ -34,7 +35,7 @@ class RegisterOrUpdateFaceActivity: AppCompatActivity(),RegiOrUpdaView{
     "LianQin")
     var path:String = ""
     var image: String = ""
-    var prensener: RegiOrUpdatePresener? = null
+    var prensener: RegiOrUpdatePresener by Delegates.notNull()
     var group_id: String = ""
     var type = ""
 
@@ -44,7 +45,7 @@ class RegisterOrUpdateFaceActivity: AppCompatActivity(),RegiOrUpdaView{
         setSupportActionBar(activity_register_face_toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         prensener = RegiOrUpdatePresener()
-        prensener?.setView(this)
+        prensener.setView(this)
         group_id = intent.getStringExtra("group_id")
         type = intent.getStringExtra("action_type")
 
@@ -88,7 +89,7 @@ class RegisterOrUpdateFaceActivity: AppCompatActivity(),RegiOrUpdaView{
             val str = "姓名为"+name+"班级为"+major
             if(num!=""&&name!=""&&major!=""){
                 Log.w("注册/更新前group信息",group_id)
-                prensener?.registerFace(group_id,num,str,image,type)
+                prensener.registerFace(group_id,num,str,image,type)
             }else{
                 Toast.makeText(this,"资料不能留空！",Toast.LENGTH_SHORT).show()
             }
@@ -159,7 +160,7 @@ class RegisterOrUpdateFaceActivity: AppCompatActivity(),RegiOrUpdaView{
 
     override fun onStop() {
         super.onStop()
-        prensener?.clearView()
+        prensener.clearView()
     }
 
     override fun showSuccessDialog(){

@@ -40,6 +40,10 @@ class StudentDetailsActivity: AppCompatActivity() {
         chu = student_chuqin
         qin = student_qinjia
 
+        val id = intent.getStringExtra("studentId")
+        textId?.text = id
+
+
         val c1 = StudentDet("2017-08-15","15:30","第七周","出勤")
         val c2 = StudentDet("2017-08-15","15:30","第七周","出勤")
         val adapter = Adapter(arrayListOf(c1,c2))

@@ -24,11 +24,12 @@ class RecordDetailsActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_record_details)
         setSupportActionBar(activity_record_details_toolbar)
-        supportActionBar?.title = "16计算机"
+        val s = intent.getStringExtra("semester")
+        supportActionBar?.title = s
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val c1 = ClassDetails("17-1","16计算机",90,88,5,6,4)
-        val c2 = ClassDetails("17-1","16医工",50,45,5,4,3)
+        val c1 = ClassDetails("17-1","第10周",90,88,5,6,4)
+        val c2 = ClassDetails("17-1","第9周",90,85,5,4,3)
         val mList = mutableListOf<ClassDetails>(c1,c2)
         recycler_record_details.layoutManager = LinearLayoutManager(this)
         recycler_record_details.adapter = RecordAdapter(mList)
@@ -45,8 +46,9 @@ class RecordDetailsActivity: AppCompatActivity() {
 
         init {
             button.setOnClickListener {
-                Toast.makeText(v.context,"点击了班级共有人数${number.text}", Toast.LENGTH_SHORT).show()
-                jumpToRecordDetailsMore()
+                Toast.makeText(v.context,"点击了共有人数${number.text}", Toast.LENGTH_SHORT).show()
+                jumpToRecordDetailsMore("${semester.text}${week.text}",number.text.toString(),chuqin.text.toString(),
+                        queqin.text.toString(), chidao.text.toString(),qinjia.text.toString())
             }
         }
     }
@@ -54,8 +56,14 @@ class RecordDetailsActivity: AppCompatActivity() {
     /**
      * 跳转到详细界面
      */
-    fun jumpToRecordDetailsMore(){
+    fun jumpToRecordDetailsMore(details: String,total: String,quc: String,que: String,chi: String,qing: String){
         val intent = Intent(this,RecordClassDetailsActivity::class.java)
+        intent.putExtra("details",details)
+        intent.putExtra("total",total)
+        intent.putExtra("quc",quc)
+        intent.putExtra("que",que)
+        intent.putExtra("chi",chi)
+        intent.putExtra("qing",qing)
         startActivity(intent)
         overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
     }
