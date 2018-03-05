@@ -45,7 +45,7 @@ class RegisterOrUpdateFaceActivity: AppCompatActivity(),RegiOrUpdaView{
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_fupdate_ace)
         setSupportActionBar(activity_register_face_toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        //supportActionBar?.setDisplayHomeAsUpEnabled(true)
         prensener = RegiOrUpdatePresener()
         prensener.setView(this)
         progress = ProgressDialog(this)
