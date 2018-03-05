@@ -108,7 +108,7 @@ class PhotoPresenter: BasePresenter {
             val service = retrofit.create(RetrofitHelper::class.java)
             val json = "{\"studentNumber\":\"${courseClassId}\",\"courseClassId\":}"
             val body = RequestBody.create(MediaType.parse("application/json;charset=utf-8"),json)
-            val call = service.startRecord(body)
+            val call = service.startRecord(body,AllNoteInfos.schoolToken)
             val result = call.execute()
             val rs = result.body()
             Log.e("考勤",rs.toString())

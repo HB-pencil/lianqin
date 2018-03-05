@@ -59,7 +59,7 @@ interface RetrofitHelper {
      * 记录考勤
      */
     @POST("/api/course/class/attendance")
-    fun startRecord(@Body body: RequestBody): Call<RecordResult>
+    fun startRecord(@Body body: RequestBody,@Header("token") token: String): Call<RecordResult>
 
     /**
      * 查看课程总考勤总计+各节课考勤的列表

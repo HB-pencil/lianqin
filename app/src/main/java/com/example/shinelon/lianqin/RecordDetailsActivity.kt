@@ -72,10 +72,11 @@ class RecordDetailsActivity: AppCompatActivity(),RecordView {
         val chidao = v.chidao
         val qinjia = v.qinjia
         val button = v.bt_record_details
+        var order = 0
 
         init {
             button.setOnClickListener {
-                jumpToRecordDetailsMore("${semester.text}${week.text}",number.text.toString(),chuqin.text.toString(),
+                jumpToRecordDetailsMore(order.toString(),number.text.toString(),chuqin.text.toString(),
                         queqin.text.toString(), chidao.text.toString(),qinjia.text.toString())
             }
         }
@@ -108,6 +109,7 @@ class RecordDetailsActivity: AppCompatActivity(),RecordView {
             holder.queqin.text = list[position].queqin.toString()
             holder.qinjia.text = list[position].qinjia.toString()
             holder.week.text = list[position].week
+            holder.order = list[position].order
         }
         override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecordViewHolder {
             val view = LayoutInflater.from(parent?.context).inflate(R.layout.list_record_details,parent,false)

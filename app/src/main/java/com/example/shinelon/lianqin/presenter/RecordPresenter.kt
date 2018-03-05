@@ -50,7 +50,7 @@ class RecordPresenter: BasePresenter {
                     recordView?.setTeacherCourseId(t.teacherCourseId)
                     rs.data.classTotalList.forEach {
                         val c = ClassDetails(it.createTime,"",it.studentNum,it.attendanceNum,it.absenceNum,
-                                it.lateNum,it.leaveNum)
+                                it.lateNum,it.leaveNum,it.classOrder)
                         list.add(c)
                     }
 
