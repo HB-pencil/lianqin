@@ -76,7 +76,7 @@ class RecordDetailsActivity: AppCompatActivity(),RecordView {
 
         init {
             button.setOnClickListener {
-                jumpToRecordDetailsMore(order.toString(),number.text.toString(),chuqin.text.toString(),
+                jumpToRecordDetailsMore("第${order}次课",number.text.toString(),chuqin.text.toString(),
                         queqin.text.toString(), chidao.text.toString(),qinjia.text.toString())
             }
         }

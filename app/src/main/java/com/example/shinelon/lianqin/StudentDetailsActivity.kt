@@ -90,7 +90,7 @@ class StudentDetailsActivity: AppCompatActivity(),StudentDetailsView {
             val str: List<String> = (list[position].attendanceTime).split(" ")
             holder?.date?.text = str[0]
             holder?.time?.text = str[1]
-            holder?.order?.text = "第${list[position].calssOrder}节"
+            holder?.order?.text = "第${list[position].calssOrder}次课"
             holder?.week?.text ="第${list[position].weekNum.toString()}周"
             when(list[position].attendanceStatus){
                 1->  holder?.record?.text = "出勤"
