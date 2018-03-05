@@ -1,8 +1,6 @@
 package com.example.shinelon.lianqin.helper
 
-import com.example.shinelon.lianqin.model.IdentifyFace
-import com.example.shinelon.lianqin.model.Register
-import com.example.shinelon.lianqin.model.Token
+import com.example.shinelon.lianqin.model.*
 import io.reactivex.Observable
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -38,4 +36,47 @@ interface RetrofitHelper {
     fun recognizeFace(@Part("access_token")token: RequestBody,@Part("group_id")group_id: RequestBody,@Part("image")image: RequestBody): Observable<IdentifyFace>
 
 
+    /**
+     * 用户登录
+     */
+    @POST("/api/user/login")
+    fun loginRequest(@Body body: RequestBody): Call<LoginResult>
+
+    /**
+     * 查看本学期所教班级
+     */
+    @GET("/api/teacher/{teacherNumber}/now/course/{pageSize}/{pageNum}")
+    fun queryClassDetails(@Path("teacherNumber") teacherNumber: String,@Path("pageSize") pageSize: Int,
+                          @Path("pageNum") pageNum: Int,@Header("token") token: String): Call<ClassDetailsResult>
+
+    /**
+     *查看是否有课
+     */
+    @GET("/api/course/{teacherCourseId}/status")
+    fun isClassBusy(@Header("token") token: String,@Path("teacherCourseId") teacherCourseId: Int): Call<ClassBusy>
+
+    /**
+     * 记录考勤
+     */
+    @POST("/api/course/class/attendance")
+    fun startRecord(@Body body: RequestBody): Call<RecordResult>
+
+    /**
+     * 查看课程总考勤总计+各节课考勤的列表
+     */
+    @GET("/api/course/{teacherCourseId}/statistics")
+    fun queryAllDetails(@Path("teacherCourseId") teacherCourseId: Int,@Header("token") token: String): Call<RecordTotal>
+
+    /**
+     * 查看某课程考勤记录
+     */
+    @GET("/api/class/{courseClassId}/statistics")
+    fun queryCourseClassDetails(@Path("courseClassId") courseClassId: Int,@Header("token") token: String): Call<CourseClassDetails>
+
+    /**
+     * 查看某学生的某课程的所有出勤情况
+     */
+    @GET("/api/student/{studentNumber}/course/{teacherCourseId}/statistics")
+    fun queryCourseStudentDetails(@Path("studentNumber") studentNumber: String,@Path("teacherCourseId") teacherCourseId: Int,
+                                  @Header("token") token: String): Call<StudentDet>
 }

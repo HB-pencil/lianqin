@@ -1,23 +1,23 @@
 package com.example.shinelon.lianqin.presenter
 
-import android.support.annotation.MainThread
 import android.util.Log
-import android.widget.Toast
 import com.example.shinelon.lianqin.helper.RetrofitHelper
 import com.example.shinelon.lianqin.model.AllNoteInfos
 import com.example.shinelon.lianqin.model.IdentifyFace
 import com.example.shinelon.lianqin.view.BaseView
 import com.example.shinelon.lianqin.view.PhotoView
 import io.reactivex.Observer
-import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import okhttp3.MediaType
 import okhttp3.RequestBody
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.*
+import java.util.concurrent.LinkedBlockingQueue
+import java.util.concurrent.ThreadPoolExecutor
+import java.util.concurrent.TimeUnit
 
 /**
  * Created by Shinelon on 2018/2/15.
@@ -27,6 +27,8 @@ class PhotoPresenter: BasePresenter {
     var photoView: PhotoView? = null
     var service: RetrofitHelper? = null
     var dispose: Disposable? = null
+    var isBusy = false
+    var courseClassId: Int = 0
     override fun setView(baseView: BaseView?) {
         photoView = baseView as PhotoView
         val retrofit = Retrofit.Builder()
@@ -65,6 +67,9 @@ class PhotoPresenter: BasePresenter {
                                     photoView?.showSuccessSound()
                                     photoView?.removeFaceView() //移除方框
                                     photoView?.resetMark()//1.5秒后重置人脸识别
+                                    if(isBusy){
+                                        completeRecord()
+                                    }
                                     return //退出判断到最外层函数
                                 }
                             }
@@ -92,4 +97,25 @@ class PhotoPresenter: BasePresenter {
                     }
                 })
     }
+
+    fun completeRecord(){
+        val pool = ThreadPoolExecutor(1,1,0, TimeUnit.MILLISECONDS, LinkedBlockingQueue<Runnable>())
+        pool.submit{
+            val retrofit = Retrofit.Builder()
+                    .baseUrl("http://119.29.193.41:81")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
+            val service = retrofit.create(RetrofitHelper::class.java)
+            val json = "{\"studentNumber\":\"${courseClassId}\",\"courseClassId\":}"
+            val body = RequestBody.create(MediaType.parse("application/json;charset=utf-8"),json)
+            val call = service.startRecord(body)
+            val result = call.execute()
+            val rs = result.body()
+            Log.e("考勤",rs.toString())
+            if(rs!!.code==200){
+                Log.e("考勤","已经记录")
+            }
+        }
+    }
+
 }

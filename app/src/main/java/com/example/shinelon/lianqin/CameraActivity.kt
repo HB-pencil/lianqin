@@ -35,6 +35,7 @@ class CameraActivity: AppCompatActivity(),PhotoView{
     private var id_2 = 0
     private val handler = Handler()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.camera_layout)
@@ -42,6 +43,8 @@ class CameraActivity: AppCompatActivity(),PhotoView{
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         prensenter = PhotoPresenter()
         group_id = intent.getStringExtra("group_id")
+        prensenter?.courseClassId =intent.getIntExtra("courseClassId",0)
+        prensenter?.isBusy = intent.getBooleanExtra("isBusy",false)
         initCamera(cameraId,group_id)
         soundPool = SoundPool(10,AudioManager.STREAM_MUSIC,0)
         id_1 = soundPool!!.load(this,R.raw.success,1)

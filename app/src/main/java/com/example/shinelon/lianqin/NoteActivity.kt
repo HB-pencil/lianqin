@@ -185,10 +185,8 @@ class NoteActivity: AppCompatActivity(),NoteView {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroy() {
+        super.onDestroy()
         presenter!!.clearView()
     }
-
-
 }

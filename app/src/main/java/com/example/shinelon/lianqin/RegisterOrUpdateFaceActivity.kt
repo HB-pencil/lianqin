@@ -3,6 +3,7 @@ package com.example.shinelon.lianqin
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.Dialog
+import android.app.ProgressDialog
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
@@ -38,6 +39,7 @@ class RegisterOrUpdateFaceActivity: AppCompatActivity(),RegiOrUpdaView{
     var prensener: RegiOrUpdatePresener by Delegates.notNull()
     var group_id: String = ""
     var type = ""
+    var progress: ProgressDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +48,8 @@ class RegisterOrUpdateFaceActivity: AppCompatActivity(),RegiOrUpdaView{
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         prensener = RegiOrUpdatePresener()
         prensener.setView(this)
+        progress = ProgressDialog(this)
+
         group_id = intent.getStringExtra("group_id")
         type = intent.getStringExtra("action_type")
 
@@ -158,8 +162,18 @@ class RegisterOrUpdateFaceActivity: AppCompatActivity(),RegiOrUpdaView{
 
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun showProgress() {
+        progress?.setMessage("上传中")
+        progress?.setCancelable(false)
+        progress?.show()
+    }
+
+    override fun dismissProgress() {
+        progress?.dismiss()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
         prensener.clearView()
     }
 

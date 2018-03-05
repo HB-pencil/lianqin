@@ -5,7 +5,9 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.provider.Settings
+import android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
 import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
 import android.support.v4.content.PermissionChecker
@@ -23,11 +25,13 @@ import android.widget.Toast
 import com.example.shinelon.lianqin.actionProviders.messageActionProvider
 import com.example.shinelon.lianqin.helper.PermissionsChecker
 import com.example.shinelon.lianqin.listener.ActionProviderListener
+import com.example.shinelon.lianqin.model.AllNoteInfos
 import com.example.shinelon.lianqin.presenter.MainPresenter
 import com.example.shinelon.lianqin.view.MainView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import kotlinx.android.synthetic.main.nav_header_main.*
 
 /**
  * created by HB,主界面Activity,作为View
@@ -66,6 +70,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
         nav_view.setNavigationItemSelectedListener(this)
+
+        val handler = Handler()
+        handler.post{
+            presenter?.getClassDetailsResult()
+        }
+
     }
 
     override fun init() {
@@ -85,12 +95,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroy() {
+        super.onDestroy()
         dialog?.dismiss()
         presenter?.clearView()
     }
-
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -134,9 +143,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     fun startSetting(){
         val i = Intent()
-        i.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+        i.action=ACTION_APPLICATION_DETAILS_SETTINGS
         val uri = Uri.fromParts("package",this.packageName,null)
-        i.setData(uri)
+        i.data = uri
         startActivity(i)
     }
 
@@ -223,5 +232,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val i = Intent(this, PrivateBroadcastViewActivity::class.java)
         startActivity(i)
         overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
+    }
+
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        description.text = AllNoteInfos.teacherName
     }
 }

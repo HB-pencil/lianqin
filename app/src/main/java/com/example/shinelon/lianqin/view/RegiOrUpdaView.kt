@@ -12,4 +12,6 @@ interface RegiOrUpdaView:BaseView{
     }
     fun showSuccessDialog()
     fun showFailureDialog(msg: String)
+    fun showProgress()
+    fun dismissProgress()
 }

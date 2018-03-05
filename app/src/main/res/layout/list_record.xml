@@ -23,12 +23,21 @@
         <TextView
             android:id="@+id/text_list_record_class"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="30dp"
             android:textSize="20sp"
             android:gravity="center"
             android:layout_below="@+id/text_list_record"
-            android:layout_margin="5dp"
+            android:layout_marginBottom="5dp"
             tools:text="16计算机"/>
+        <TextView
+            android:id="@+id/text_list_record_details"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:layout_below="@+id/text_list_record_class"
+            android:layout_marginBottom="5dp"
+            tools:text="高等数学"/>
 
     </RelativeLayout>
 

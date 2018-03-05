@@ -1,5 +1,6 @@
 package com.example.shinelon.lianqin.presenter
 
+import android.app.ProgressDialog
 import android.util.Log
 import com.example.shinelon.lianqin.MyApplication
 import com.example.shinelon.lianqin.helper.RetrofitHelper
@@ -21,12 +22,13 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 class RegiOrUpdatePresener: BasePresenter{
     var view: RegiOrUpdaView? = null
+
     override fun setView(baseView: BaseView?) {
         view = baseView as RegiOrUpdaView
-
     }
 
     fun registerFace(group_id: String,uid: String,user_info: String,image: String,type: String){
+        view!!.showProgress()
         val retrofit = Retrofit.Builder()
                 .baseUrl("https://aip.baidubce.com/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -42,9 +44,10 @@ class RegiOrUpdatePresener: BasePresenter{
         val call = service.registerFace(token,_uid,_user_info,_group_id,_image,_actiontype)
         call.enqueue(object :Callback<Register>{
             override fun onResponse(call: Call<Register>?, response: Response<Register>?) {
+                view!!.dismissProgress()
                 Log.e("onResponse",response?.body().toString())
                 val result = response?.body()
-                if (result!=null && result.error_msg==null){
+                if (result!=null && result.error_code==0L){
                     view!!.showSuccessDialog()
                 }else{
                     view!!.showFailureDialog(result!!.error_msg)
@@ -52,8 +55,9 @@ class RegiOrUpdatePresener: BasePresenter{
             }
 
             override fun onFailure(call: Call<Register>?, t: Throwable?) {
+                view!!.dismissProgress()
                 Log.e("onFailure",t.toString())
-                view?.showFailureDialog("")
+                view!!.showFailureDialog("")
             }
         })
     }

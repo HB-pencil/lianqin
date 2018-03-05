@@ -4,20 +4,26 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewParent
 import android.widget.ImageView
 import android.widget.TextView
+import com.example.shinelon.lianqin.model.CourseTotalBean
 import com.example.shinelon.lianqin.model.StudentDet
+import com.example.shinelon.lianqin.model.StudentDetailsBean
+import com.example.shinelon.lianqin.presenter.StudentDetailsPresenter
+import com.example.shinelon.lianqin.view.StudentDetailsView
 import kotlinx.android.synthetic.main.activity_student_details.*
 import kotlinx.android.synthetic.main.list_student_details.view.*
+import kotlin.properties.Delegates
 
 /**
  * Created by Shinelon on 2018/2/8.
  */
-class StudentDetailsActivity: AppCompatActivity() {
+class StudentDetailsActivity: AppCompatActivity(),StudentDetailsView {
     var img: ImageView? = null
     var textId: TextView? = null
     var textMajor: TextView? = null
@@ -25,6 +31,8 @@ class StudentDetailsActivity: AppCompatActivity() {
     var chi: TextView? = null
     var chu: TextView? = null
     var qin: TextView? = null
+    var list = arrayListOf<StudentDetailsBean>()
+    var presenter: StudentDetailsPresenter by Delegates.notNull()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,14 +48,23 @@ class StudentDetailsActivity: AppCompatActivity() {
         chu = student_chuqin
         qin = student_qinjia
 
+        presenter = StudentDetailsPresenter()
+        presenter.setView(this)
+
         val id = intent.getStringExtra("studentId")
+        val major = intent.getStringExtra("major")
+        val teacherCourseId = intent.getIntExtra("teacherCourseId",0)
         textId?.text = id
+        presenter.initList(list,id,teacherCourseId)
 
+    }
 
-        val c1 = StudentDet("2017-08-15","15:30","第七周","出勤")
-        val c2 = StudentDet("2017-08-15","15:30","第七周","出勤")
-        val adapter = Adapter(arrayListOf(c1,c2))
+    override fun init(major: String) {
+        textMajor?.text = major
+    }
 
+    override fun init() {
+        val adapter = Adapter(list)
         recycler_student.layoutManager = LinearLayoutManager(this)
         recycler_student.adapter = adapter
     }
@@ -59,7 +76,7 @@ class StudentDetailsActivity: AppCompatActivity() {
         val record = v.student_record
     }
 
-    inner class Adapter(l: ArrayList<StudentDet>): RecyclerView.Adapter<ViewHolder>(){
+    inner class Adapter(l: ArrayList<StudentDetailsBean>): RecyclerView.Adapter<ViewHolder>(){
         val list = l
         override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
             val v = layoutInflater.inflate(R.layout.list_student_details,parent,false)
@@ -67,13 +84,24 @@ class StudentDetailsActivity: AppCompatActivity() {
         }
 
         override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-            holder?.date?.text = list[position].date
-            holder?.time?.text = list[position].time
-            holder?.week?.text = list[position].week
-            holder?.record?.text = list[position].record
+            val str: List<String> = (list[position].attendanceTime).split(" ")
+            holder?.date?.text = str[0]
+            holder?.time?.text = str[1]
+            holder?.week?.text ="第${list[position].weekNum.toString()}周"
+            when(list[position].attendanceStatus){
+                1->  holder?.record?.text = "出勤"
+                2->  holder?.record?.text = "迟到"
+                3->  holder?.record?.text = "请假"
+                4->  holder?.record?.text = "旷课"
+            }
+
         }
 
         override fun getItemCount() = list.size
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.clearView()
+    }
 }

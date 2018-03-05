@@ -1,5 +1,6 @@
 package com.example.shinelon.lianqin
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Rect
 import android.graphics.RectF
@@ -13,9 +14,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
-import android.widget.FrameLayout
 import android.widget.Toast
+import com.example.shinelon.lianqin.model.AllNoteInfos
 import com.example.shinelon.lianqin.model.ClassInfos
 import kotlinx.android.synthetic.main.activity_choose_class.*
 import kotlinx.android.synthetic.main.listview_choose_classs.view.*
@@ -26,20 +26,16 @@ import kotlinx.android.synthetic.main.listview_choose_classs.view.*
  */
 
 class ChooseCalssActivity: AppCompatActivity(){
-
+    var progress: ProgressDialog? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_choose_class)
         setSupportActionBar(choose_activity_toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        val c1 = ClassInfos("17-1","16计算机科学与技术")
-        val c2 = ClassInfos("17-1","15医学信息工程")
-        val c3 = ClassInfos("17-1","16医学信息工程")
-        val mList = mutableListOf<ClassInfos>(c1,c2,c3)
+        val mList = AllNoteInfos.classInfoList
         choose_recycler_view.layoutManager = LinearLayoutManager(this)
         choose_recycler_view.adapter = ChooseAdapter(mList)
-
+        progress = ProgressDialog(this)
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -81,10 +77,11 @@ class ChooseCalssActivity: AppCompatActivity(){
     private inner class ChooseViewHolder(v: View): RecyclerView.ViewHolder(v){
         val semesterText = v.semester
         val classText = v.class_which
+        val classDetails = v.class_details
+        var teacherCourseId: Int = 0
         init {
             v.setOnClickListener {
-                Toast.makeText(v.context,"点击了班级：${classText.text}",Toast.LENGTH_SHORT).show()
-                jumpToSelect(classText.text.toString())
+                jumpToSelect(teacherCourseId)
             }
         }
     }
@@ -92,14 +89,14 @@ class ChooseCalssActivity: AppCompatActivity(){
     /**
      * 跳转到识别界面
      */
-    fun jumpToSelect(banji: String){
+    fun jumpToSelect(teacherCourseId: Int){
+        progress?.setMessage("正在查询课程情况")
+        progress?.setCancelable(false)
+        progress?.show()
         val intent = Intent(this,AddFaceActivity::class.java)
-        Log.w("班级",banji)
-        when(banji){
-            "16计算机科学与技术"-> intent.putExtra("banji","16_jisuanji")
-            "15医学信息工程" -> intent.putExtra("banji","15_yigong")
-            "16医学信息工程" -> intent.putExtra("banji","16_yigong")
-        }
+        Log.w("课程id",teacherCourseId.toString())
+        intent.putExtra("banji","kechengid_"+teacherCourseId)
+        intent.putExtra("teacherCourseId",teacherCourseId)
         startActivity(intent)
         overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
     }
@@ -110,6 +107,8 @@ class ChooseCalssActivity: AppCompatActivity(){
         override fun onBindViewHolder(holder: ChooseViewHolder?, position: Int) {
             holder?.semesterText?.text = list[position].semester
             holder?.classText?.text = list[position].classes
+            holder?.classDetails?.text = list[position].details
+            holder?.teacherCourseId = list[position].courseId
         }
         override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ChooseViewHolder {
             val view = LayoutInflater.from(parent?.context).inflate(R.layout.listview_choose_classs,parent,false)
@@ -119,4 +118,8 @@ class ChooseCalssActivity: AppCompatActivity(){
         override fun getItemCount() = list.size
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        progress?.dismiss()
+    }
 }

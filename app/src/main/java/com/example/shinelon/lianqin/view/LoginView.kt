@@ -7,4 +7,5 @@ interface LoginView: BaseView {
     fun loginSystem()
     fun skipToForgetActivity()
     fun skipToRegisterActivity()
+    fun loginFail()
 }

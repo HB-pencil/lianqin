@@ -1,39 +1,69 @@
 package com.example.shinelon.lianqin
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import com.example.shinelon.lianqin.model.ClassDetails
 import com.example.shinelon.lianqin.model.ClassInfos
+import com.example.shinelon.lianqin.model.TotalSim
+import com.example.shinelon.lianqin.presenter.RecordPresenter
+import com.example.shinelon.lianqin.view.RecordView
 import kotlinx.android.synthetic.main.activity_record.*
 import kotlinx.android.synthetic.main.activity_record_details.*
 import kotlinx.android.synthetic.main.list_record_details.view.*
 import kotlinx.android.synthetic.main.listview_choose_classs.view.*
+import kotlin.properties.Delegates
 
 /**
  * Created by Shinelon on 2018/2/8.
  */
-class RecordDetailsActivity: AppCompatActivity() {
+class RecordDetailsActivity: AppCompatActivity(),RecordView {
+    var presenter: RecordPresenter by Delegates.notNull()
+    val mList = mutableListOf<ClassDetails>()
+    var tId = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_record_details)
         setSupportActionBar(activity_record_details_toolbar)
         val s = intent.getStringExtra("semester")
+        val id = intent.getIntExtra("teacherCourseId",0)
         supportActionBar?.title = s
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        presenter = RecordPresenter()
+        presenter.setView(this)
+        presenter.initList(mList,id)
+    }
 
-        val c1 = ClassDetails("17-1","第10周",90,88,5,6,4)
-        val c2 = ClassDetails("17-1","第9周",90,85,5,4,3)
-        val mList = mutableListOf<ClassDetails>(c1,c2)
+    override fun init() {
         recycler_record_details.layoutManager = LinearLayoutManager(this)
         recycler_record_details.adapter = RecordAdapter(mList)
     }
+
+    override fun setTeacherCourseId(id: Int) {
+        tId = id
+        Log.e("teacherCourseId",tId.toString())
+    }
+
+    override fun updateHeader(p1: Int, p2: Int, p3: Int, p4: Int, p5: Int) {
+        sum_record.text = p1.toString()
+        consume_number.text = p2.toString()
+        queqin.text = p3.toString()
+        chidao.text = p4.toString()
+        qinjia.text = p5.toString()
+
+    }
+
     private inner class RecordViewHolder(v: View): RecyclerView.ViewHolder(v){
         val semester = v.record_time
         val week = v.record_week
@@ -46,7 +76,6 @@ class RecordDetailsActivity: AppCompatActivity() {
 
         init {
             button.setOnClickListener {
-                Toast.makeText(v.context,"点击了共有人数${number.text}", Toast.LENGTH_SHORT).show()
                 jumpToRecordDetailsMore("${semester.text}${week.text}",number.text.toString(),chuqin.text.toString(),
                         queqin.text.toString(), chidao.text.toString(),qinjia.text.toString())
             }
@@ -64,6 +93,7 @@ class RecordDetailsActivity: AppCompatActivity() {
         intent.putExtra("que",que)
         intent.putExtra("chi",chi)
         intent.putExtra("qing",qing)
+        intent.putExtra("teacherCourseId",tId)
         startActivity(intent)
         overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
     }
@@ -86,5 +116,10 @@ class RecordDetailsActivity: AppCompatActivity() {
         }
 
         override fun getItemCount() = list.size
+    }
+
+    override fun onStop() {
+        super.onStop()
+        presenter.clearView()
     }
 }

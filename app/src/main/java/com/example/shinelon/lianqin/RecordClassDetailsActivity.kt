@@ -5,20 +5,24 @@ import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
-import android.support.v4.view.PagerAdapter
 import android.support.v7.app.AppCompatActivity
-import android.view.View
-import android.view.ViewGroup
 import com.example.shinelon.lianqin.fragment.CLassDetailsFragment
-import com.example.shinelon.lianqin.model.StudentSim
+import com.example.shinelon.lianqin.model.StudentBean
+import com.example.shinelon.lianqin.presenter.RecordClassDetailsPresenter
+import com.example.shinelon.lianqin.view.RecordClassDetailsView
 import kotlinx.android.synthetic.main.activity_record_calss_details.*
-import kotlinx.android.synthetic.main.activity_record_details.*
+import kotlin.properties.Delegates
 
 /**
  * Created by Shinelon on 2018/2/8.
  */
-class RecordClassDetailsActivity: AppCompatActivity() {
+class RecordClassDetailsActivity: AppCompatActivity(),RecordClassDetailsView {
     val listTitle = listOf("缺勤学生","迟到学生","请假学生")
+    var listLate: ArrayList<StudentBean>? = null
+    var listAbsence: ArrayList<StudentBean>? = null
+    var listLeave: ArrayList<StudentBean>? = null
+    var presenter by Delegates.notNull<RecordClassDetailsPresenter>()
+    var tId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,25 +38,38 @@ class RecordClassDetailsActivity: AppCompatActivity() {
         val chidao = intent.getStringExtra("chi")
         val qingjia = intent.getStringExtra("qing")
 
+        presenter = RecordClassDetailsPresenter()
+        presenter.setView(this)
+
         text_class_details_number.text = total
         textchuqin.text = chuqin
         textqueqin.text = queqin
         textqinjia.text = qingjia
         textchidao.text = chidao
 
+        tId = intent.getIntExtra("teacherCourseId",0)
+        presenter.initList(tId)
+    }
+
+    override fun initList(list1: ArrayList<StudentBean>?, list2: ArrayList<StudentBean>?, list3: ArrayList<StudentBean>?) {
+        listLate = list1
+        listAbsence = list2
+        listLeave = list3
+    }
+
+    override fun init() {
         val fm = supportFragmentManager
-
-        val fg1 = CLassDetailsFragment.newInstance(arrayListOf(StudentSim("周嘉炜","2015000000")))
-        val fg2 = CLassDetailsFragment.newInstance(arrayListOf(StudentSim("小红","2015111111")))
-        val fg3 = CLassDetailsFragment.newInstance(arrayListOf(StudentSim("小明","2015222222")))
+        val fg1 = CLassDetailsFragment.newInstance(listAbsence,tId)
+        val fg2 = CLassDetailsFragment.newInstance(listLate,tId)
+        val fg3 = CLassDetailsFragment.newInstance(listLeave,tId)
         val list = mutableListOf<Fragment>(fg1,fg2,fg3)
-
         val pagerAdapter = ViewPagerAdapter(list,fm)
         viewpager.adapter = pagerAdapter
         tab_layout.tabMode = TabLayout.MODE_FIXED
         tab_layout.setupWithViewPager(viewpager)
     }
-/**
+
+    /**
     inner class ViewPagerAdapter: PagerAdapter(){
         override fun isViewFromObject(view: View, `object`: Any): Boolean {
 
@@ -89,5 +106,11 @@ class RecordClassDetailsActivity: AppCompatActivity() {
     override fun getPageTitle(position: Int): CharSequence? {
         return listTitle[position]
     }
-}
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.clearView()
+    }
 }

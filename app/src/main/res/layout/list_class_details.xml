@@ -20,5 +20,6 @@
         android:layout_alignParentEnd="true"
         android:background="@drawable/selected_state_bt"
         android:text="@string/record_details_button"
+        android:layout_marginEnd="20dp"
         android:layout_gravity="end"/>
 </RelativeLayout>
