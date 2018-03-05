@@ -1,5 +1,6 @@
 package com.example.shinelon.lianqin.presenter
 
+import android.os.Handler
 import android.util.Log
 import com.example.shinelon.lianqin.helper.RetrofitHelper
 import com.example.shinelon.lianqin.model.AllNoteInfos
@@ -15,9 +16,7 @@ import okhttp3.RequestBody
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.LinkedBlockingQueue
-import java.util.concurrent.ThreadPoolExecutor
-import java.util.concurrent.TimeUnit
+import java.util.concurrent.*
 
 /**
  * Created by Shinelon on 2018/2/15.
@@ -29,6 +28,9 @@ class PhotoPresenter: BasePresenter {
     var dispose: Disposable? = null
     var isBusy = false
     var courseClassId: Int = 0
+    var studentNumber = ""
+    var handler = Handler()
+
     override fun setView(baseView: BaseView?) {
         photoView = baseView as PhotoView
         val retrofit = Retrofit.Builder()
@@ -62,13 +64,16 @@ class PhotoPresenter: BasePresenter {
                         if (t.result_num >= 1 ){
                             t.result.forEach {
                                 if(it.scores[0]>=80){
+                                    studentNumber = it.uid.split("_")[0]
                                     Log.e("Rxjava","onNext匹配分数为"+it.scores[0])
-                                    photoView?.showToast("识别成功，已考勤！")
                                     photoView?.showSuccessSound()
                                     photoView?.removeFaceView() //移除方框
                                     photoView?.resetMark()//1.5秒后重置人脸识别
+                                    Log.e("Rxjava",isBusy.toString())
                                     if(isBusy){
                                         completeRecord()
+                                    }else{
+                                        photoView?.showToast("考勤失败，无课！")
                                     }
                                     return //退出判断到最外层函数
                                 }
@@ -99,21 +104,25 @@ class PhotoPresenter: BasePresenter {
     }
 
     fun completeRecord(){
-        val pool = ThreadPoolExecutor(1,1,0, TimeUnit.MILLISECONDS, LinkedBlockingQueue<Runnable>())
-        pool.submit{
+        Log.e("考勤","开始执行")
+        val pool: ExecutorService = ThreadPoolExecutor(1,1,0, TimeUnit.MILLISECONDS, LinkedBlockingQueue<Runnable>())
+        val r =pool.submit{
             val retrofit = Retrofit.Builder()
                     .baseUrl("http://119.29.193.41:81")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
             val service = retrofit.create(RetrofitHelper::class.java)
-            val json = "{\"studentNumber\":\"${courseClassId}\",\"courseClassId\":}"
+            val json = "{\"studentNumber\":\"$studentNumber\",\"courseClassId\":$courseClassId}"
             val body = RequestBody.create(MediaType.parse("application/json;charset=utf-8"),json)
             val call = service.startRecord(body,AllNoteInfos.schoolToken)
             val result = call.execute()
             val rs = result.body()
             Log.e("考勤",rs.toString())
+            handler.post {
+                if(rs!!.message.isNotEmpty()) photoView?.showToast(rs.message)
+            }
             if(rs!!.code==200){
-                Log.e("考勤","已经记录")
+                Log.e("考勤","已经记录"+rs.message)
             }
         }
     }

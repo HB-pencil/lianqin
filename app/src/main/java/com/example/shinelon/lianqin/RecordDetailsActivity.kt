@@ -30,7 +30,6 @@ import kotlin.properties.Delegates
 class RecordDetailsActivity: AppCompatActivity(),RecordView {
     var presenter: RecordPresenter by Delegates.notNull()
     val mList = mutableListOf<ClassDetails>()
-    var tId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,10 +48,6 @@ class RecordDetailsActivity: AppCompatActivity(),RecordView {
         recycler_record_details.adapter = RecordAdapter(mList)
     }
 
-    override fun setTeacherCourseId(id: Int) {
-        tId = id
-        Log.e("teacherCourseId",tId.toString())
-    }
 
     override fun updateHeader(p1: Int, p2: Int, p3: Int, p4: Int, p5: Int) {
         sum_record.text = p1.toString()
@@ -73,11 +68,12 @@ class RecordDetailsActivity: AppCompatActivity(),RecordView {
         val qinjia = v.qinjia
         val button = v.bt_record_details
         var order = 0
+        var id = 0
 
         init {
             button.setOnClickListener {
                 jumpToRecordDetailsMore("第${order}次课",number.text.toString(),chuqin.text.toString(),
-                        queqin.text.toString(), chidao.text.toString(),qinjia.text.toString())
+                        queqin.text.toString(), chidao.text.toString(),qinjia.text.toString(),id)
             }
         }
     }
@@ -85,7 +81,7 @@ class RecordDetailsActivity: AppCompatActivity(),RecordView {
     /**
      * 跳转到详细界面
      */
-    fun jumpToRecordDetailsMore(details: String,total: String,quc: String,que: String,chi: String,qing: String){
+    fun jumpToRecordDetailsMore(details: String,total: String,quc: String,que: String,chi: String,qing: String,id: Int){
         val intent = Intent(this,RecordClassDetailsActivity::class.java)
         intent.putExtra("details",details)
         intent.putExtra("total",total)
@@ -93,7 +89,7 @@ class RecordDetailsActivity: AppCompatActivity(),RecordView {
         intent.putExtra("que",que)
         intent.putExtra("chi",chi)
         intent.putExtra("qing",qing)
-        intent.putExtra("teacherCourseId",tId)
+        intent.putExtra("courseClassId",id)
         startActivity(intent)
         overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
     }
@@ -110,6 +106,7 @@ class RecordDetailsActivity: AppCompatActivity(),RecordView {
             holder.qinjia.text = list[position].qinjia.toString()
             holder.week.text = list[position].week
             holder.order = list[position].order
+            holder.id = list[position].courseClassId
         }
         override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecordViewHolder {
             val view = LayoutInflater.from(parent?.context).inflate(R.layout.list_record_details,parent,false)

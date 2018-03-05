@@ -46,7 +46,7 @@ class RecordClassDetailsActivity: AppCompatActivity(),RecordClassDetailsView {
         textqinjia.text = qingjia
         textchidao.text = chidao
 
-        tId = intent.getIntExtra("teacherCourseId",0)
+        tId = intent.getIntExtra("courseClassId",0)
         presenter.initList(tId)
     }
 

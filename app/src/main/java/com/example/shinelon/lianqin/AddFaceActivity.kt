@@ -3,6 +3,7 @@ package com.example.shinelon.lianqin
 import android.animation.ValueAnimator
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -23,6 +24,7 @@ class AddFaceActivity: AppCompatActivity(){
     var group_id: String = ""
     var isBusy = false
     var courseClassId: Int = 0
+    var handler = Handler()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_face)
@@ -31,7 +33,7 @@ class AddFaceActivity: AppCompatActivity(){
 
         group_id = intent.getStringExtra("banji")
         Log.w("addFaceAc","组别"+group_id)
-
+        activity_add_kaoqin.isEnabled = false
 
         activity_add_kaoqin.setOnClickListener{
             if (!isBusy){
@@ -88,8 +90,10 @@ class AddFaceActivity: AppCompatActivity(){
                 isBusy = true
                 courseClassId = rs.data.courseClassId
             }
+            handler.post{
+                activity_add_kaoqin.isEnabled = true
+            }
         }
-        Thread.sleep(1200)
     }
 
     fun showWarning(){

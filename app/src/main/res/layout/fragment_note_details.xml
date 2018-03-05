@@ -26,5 +26,7 @@
         android:textColor="@color/black"
         android:textSize="20sp"
         android:gravity="top"
-        android:inputType="text"/>
+        android:singleLine="false"
+        android:scrollHorizontally="false"
+        android:inputType="text|textMultiLine"/>
 </LinearLayout>
