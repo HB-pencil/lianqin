@@ -26,7 +26,6 @@ import kotlinx.android.synthetic.main.listview_choose_classs.view.*
  */
 
 class ChooseCalssActivity: AppCompatActivity(){
-    var progress: ProgressDialog? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_choose_class)
@@ -35,7 +34,6 @@ class ChooseCalssActivity: AppCompatActivity(){
         val mList = AllNoteInfos.classInfoList
         choose_recycler_view.layoutManager = LinearLayoutManager(this)
         choose_recycler_view.adapter = ChooseAdapter(mList)
-        progress = ProgressDialog(this)
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -90,9 +88,6 @@ class ChooseCalssActivity: AppCompatActivity(){
      * 跳转到识别界面
      */
     fun jumpToSelect(teacherCourseId: Int){
-        progress?.setMessage("正在查询课程情况")
-        progress?.setCancelable(false)
-        progress?.show()
         val intent = Intent(this,AddFaceActivity::class.java)
         Log.w("课程id",teacherCourseId.toString())
         intent.putExtra("banji","kechengid_"+teacherCourseId)
@@ -118,8 +113,4 @@ class ChooseCalssActivity: AppCompatActivity(){
         override fun getItemCount() = list.size
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        progress?.dismiss()
-    }
 }

@@ -28,7 +28,6 @@ class RecordClassDetailsActivity: AppCompatActivity(),RecordClassDetailsView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_record_calss_details)
         setSupportActionBar(activity_record_class_details_toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         val details = intent.getStringExtra("details")
         supportActionBar?.title = details
 

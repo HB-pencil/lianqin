@@ -52,12 +52,9 @@
         <activity android:name=".RecordActivity"
             android:label="选择班级"
             android:parentActivityName=".MainActivity"/>
-        <activity android:name=".RecordDetailsActivity"
-            android:parentActivityName=".RecordActivity"/>
-        <activity android:name=".RecordClassDetailsActivity"
-            android:parentActivityName=".RecordDetailsActivity"/>
-        <activity android:name=".StudentDetailsActivity"
-            android:parentActivityName=".RecordClassDetailsActivity"/>
+        <activity android:name=".RecordDetailsActivity" />
+        <activity android:name=".RecordClassDetailsActivity" />
+        <activity android:name=".StudentDetailsActivity" />
         <activity android:name=".AddFaceActivity"
             android:parentActivityName=".ChooseCalssActivity"/>
         <activity android:name=".RegisterOrUpdateFaceActivity"

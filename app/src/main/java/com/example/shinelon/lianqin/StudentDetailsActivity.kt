@@ -38,7 +38,6 @@ class StudentDetailsActivity: AppCompatActivity(),StudentDetailsView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_student_details)
         setSupportActionBar(activity_student_details_toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         img = student_image
         textId = student_id
@@ -52,15 +51,18 @@ class StudentDetailsActivity: AppCompatActivity(),StudentDetailsView {
         presenter.setView(this)
 
         val id = intent.getStringExtra("studentId")
-        val major = intent.getStringExtra("major")
         val teacherCourseId = intent.getIntExtra("teacherCourseId",0)
         textId?.text = id
         presenter.initList(list,id,teacherCourseId)
 
     }
 
-    override fun init(major: String) {
+    override fun init(major: String,q: String,c: String,qg: String,ch: String) {
         textMajor?.text = major
+        que?.text = q
+        chi?.text = c
+        qin?.text = qg
+        chu?.text = ch
     }
 
     override fun init() {
@@ -74,6 +76,7 @@ class StudentDetailsActivity: AppCompatActivity(),StudentDetailsView {
         val time = v.student_time
         val week = v.student_week
         val record = v.student_record
+        val order = v.class_order
     }
 
     inner class Adapter(l: ArrayList<StudentDetailsBean>): RecyclerView.Adapter<ViewHolder>(){
@@ -87,6 +90,7 @@ class StudentDetailsActivity: AppCompatActivity(),StudentDetailsView {
             val str: List<String> = (list[position].attendanceTime).split(" ")
             holder?.date?.text = str[0]
             holder?.time?.text = str[1]
+            holder?.order?.text = "第${list[position].calssOrder}节"
             holder?.week?.text ="第${list[position].weekNum.toString()}周"
             when(list[position].attendanceStatus){
                 1->  holder?.record?.text = "出勤"

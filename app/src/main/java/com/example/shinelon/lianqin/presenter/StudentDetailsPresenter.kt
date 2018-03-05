@@ -48,7 +48,9 @@ class StudentDetailsPresenter: BasePresenter {
                     }
                     view?.init()
                 }
-                view?.init(result.data.courseTotal.originalClass)
+                val rs = result.data.courseTotal
+                view?.init(rs.originalClass,rs.absenceNum.toString(),rs.lateNum.toString(),
+                        rs.leaveNum.toString(),rs.attendanceNum.toString())
             }
         })
     }

@@ -39,7 +39,6 @@ class RecordDetailsActivity: AppCompatActivity(),RecordView {
         val s = intent.getStringExtra("semester")
         val id = intent.getIntExtra("teacherCourseId",0)
         supportActionBar?.title = s
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         presenter = RecordPresenter()
         presenter.setView(this)
         presenter.initList(mList,id)

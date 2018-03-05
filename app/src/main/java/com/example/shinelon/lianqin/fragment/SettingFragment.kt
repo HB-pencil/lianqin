@@ -24,11 +24,10 @@ import kotlin.properties.Delegates
  */
 class SettingFragment:PreferenceFragment(),SharedPreferences.OnSharedPreferenceChangeListener{
     private var cachePref: Preference? = null
-    private var cache: DiskLruCache by Delegates.notNull()
+    private var cache: DiskLruCache? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         addPreferencesFromResource(R.xml.setting_pre)
-        updateCache()
 
         val pre = PreferenceManager.getDefaultSharedPreferences(activity)
         findPreference("bind_phone").summary = pre.getString("bind_phone","点击绑定您的手机号码")
@@ -65,6 +64,7 @@ class SettingFragment:PreferenceFragment(),SharedPreferences.OnSharedPreferenceC
 
         val file = getDiskCach()
         cache = DiskLruCache.open(file,1,1,1*1024*1024*10)//第三个参数一个key对应多少文件
+        updateCache()
         //待补充,edit(key)后newOutputStream写入之后commit或者abort，最后flush
     }
 
@@ -109,12 +109,12 @@ class SettingFragment:PreferenceFragment(),SharedPreferences.OnSharedPreferenceC
 
     fun clearCache():Boolean{
         activity.externalCacheDir
-        cache.delete()
+        cache!!.delete()
         Snackbar.make(view,"清除缓存成功",Snackbar.LENGTH_SHORT).show()
         return true
     }
     fun updateCache(){
-        val size = cache.size()/1024/1024F
+        val size = cache!!.size()/1024/1024F
         activity.externalCacheDirs
         cachePref = findPreference("clear")
         cachePref?.summary = "缓存大小为${size}M"
