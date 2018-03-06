@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import com.example.shinelon.lianqin.fragment.CLassDetailsFragment
 import com.example.shinelon.lianqin.model.StudentBean
 import com.example.shinelon.lianqin.presenter.RecordClassDetailsPresenter
@@ -22,7 +23,8 @@ class RecordClassDetailsActivity: AppCompatActivity(),RecordClassDetailsView {
     var listAbsence: ArrayList<StudentBean>? = null
     var listLeave: ArrayList<StudentBean>? = null
     var presenter by Delegates.notNull<RecordClassDetailsPresenter>()
-    var tId = 0
+    var courseClassId = 0
+    var teacherCourseId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,8 +48,8 @@ class RecordClassDetailsActivity: AppCompatActivity(),RecordClassDetailsView {
         textqinjia.text = qingjia
         textchidao.text = chidao
 
-        tId = intent.getIntExtra("courseClassId",0)
-        presenter.initList(tId)
+        courseClassId = intent.getIntExtra("courseClassId",0)
+        presenter.initList(courseClassId)
     }
 
     override fun initList(list1: ArrayList<StudentBean>?, list2: ArrayList<StudentBean>?, list3: ArrayList<StudentBean>?) {
@@ -56,11 +58,17 @@ class RecordClassDetailsActivity: AppCompatActivity(),RecordClassDetailsView {
         listLeave = list3
     }
 
+    override fun initTeacherCourseId(_teacherCourseId: Int) {
+        teacherCourseId = _teacherCourseId
+        Log.w("teacherCourseId赋值",_teacherCourseId.toString())
+    }
+
     override fun init() {
+
         val fm = supportFragmentManager
-        val fg1 = CLassDetailsFragment.newInstance(listAbsence,tId)
-        val fg2 = CLassDetailsFragment.newInstance(listLate,tId)
-        val fg3 = CLassDetailsFragment.newInstance(listLeave,tId)
+        val fg1 = CLassDetailsFragment.newInstance(listAbsence,teacherCourseId)
+        val fg2 = CLassDetailsFragment.newInstance(listLate,teacherCourseId)
+        val fg3 = CLassDetailsFragment.newInstance(listLeave,teacherCourseId)
         val list = mutableListOf<Fragment>(fg1,fg2,fg3)
         val pagerAdapter = ViewPagerAdapter(list,fm)
         viewpager.adapter = pagerAdapter

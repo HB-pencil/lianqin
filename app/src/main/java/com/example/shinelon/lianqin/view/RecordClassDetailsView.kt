@@ -7,4 +7,5 @@ import com.example.shinelon.lianqin.model.StudentBean
  */
 interface RecordClassDetailsView: BaseView {
     fun initList(list1: ArrayList<StudentBean>?,list2: ArrayList<StudentBean>?,list3: ArrayList<StudentBean>?)
+    fun initTeacherCourseId(_teacherCourseId:Int)
 }

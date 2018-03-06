@@ -88,7 +88,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/record_details_bottom_right"/>
                 <TextView
-                    android:id="@+id/chidao"
+                    android:id="@+id/qinjia"
                     android:layout_width="wrap_content"
                     android:gravity="start"
                     android:layout_height="wrap_content"
@@ -103,7 +103,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/record_details_bottom_right_center"/>
                 <TextView
-                    android:id="@+id/qinjia"
+                    android:id="@+id/chidao"
                     android:layout_width="wrap_content"
                     android:gravity="start"
                     android:layout_height="wrap_content"

@@ -18,7 +18,6 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 class RecordClassDetailsPresenter: BasePresenter {
     var view: RecordClassDetailsView? = null
-    val handler = Handler()
     override fun setView(baseView: BaseView?) {
         view = baseView as RecordClassDetailsView
     }
@@ -50,6 +49,7 @@ class RecordClassDetailsPresenter: BasePresenter {
                     val list3 = rs.data.leaveStudentList
                     view?.initList(list1,list2,list3)
                     Log.e("list集合",list1.toString())
+                    view?.initTeacherCourseId(rs.data.classTotal.teacherCourseId)
                     view?.init()
                 }
             }

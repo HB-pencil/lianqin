@@ -48,7 +48,7 @@ class RecordPresenter: BasePresenter {
                 if (rs!!.code==200){
                     val t = rs.data.courseTotal
                     rs.data.classTotalList.forEach {
-                        val c = ClassDetails(it.createTime,"",it.studentNum,it.attendanceNum,it.absenceNum,
+                        val c = ClassDetails(it.classDate,"",it.studentNum,it.attendanceNum,it.absenceNum,
                                 it.lateNum,it.leaveNum,it.classOrder,it.courseClassId)
                         list.add(c)
                     }

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,6 +42,7 @@ class CLassDetailsFragment: Fragment() {
 
     companion object {
         fun newInstance(list: ArrayList<StudentBean>?,teaCourseId: Int): CLassDetailsFragment{
+            Log.w("teacherCourseId",teaCourseId.toString())
             val fragment = CLassDetailsFragment()
             val bundle = Bundle()
             if(list!=null){

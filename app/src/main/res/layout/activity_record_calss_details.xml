@@ -83,10 +83,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/record_details_bottom_right"
                 android:textStyle="bold"
-                android:text="@string/record_details_bottom_right_center"/>
+                />
             <TextView
-                android:id="@+id/textchidao"
+                android:id="@+id/textqinjia"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="start"
@@ -100,9 +101,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:text="@string/record_details_bottom_right"/>
+                android:text="@string/record_details_bottom_right_center"/>
             <TextView
-                android:id="@+id/textqinjia"
+                android:id="@+id/textchidao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="23"/>
