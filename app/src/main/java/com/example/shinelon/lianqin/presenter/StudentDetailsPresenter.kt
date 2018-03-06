@@ -40,8 +40,8 @@ class StudentDetailsPresenter: BasePresenter {
             }
 
             override fun onResponse(call: Call<StudentDet>?, response: Response<StudentDet>?) {
-                Log.e("查询学生信息",response.toString())
-                val result = response!!.body()
+                Log.e("查询学生信息",response!!.body().toString())
+                val result = response.body()
                 if(result!!.code==200){
                     result.data.classTotalList.forEach{
                         list.add(it)
