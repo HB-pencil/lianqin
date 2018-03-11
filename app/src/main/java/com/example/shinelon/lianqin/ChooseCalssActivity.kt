@@ -46,6 +46,7 @@ class ChooseCalssActivity: AppCompatActivity(){
             finish()
         }
 
+        /*
         appBarLayout.addOnOffsetChangedListener{
             appBarLayout, verticalOffset ->    if (verticalOffset == 0) {
             //不要试图在CollapsingToolbarLayout使用toolbar的title = =又是个官方bug
@@ -56,7 +57,7 @@ class ChooseCalssActivity: AppCompatActivity(){
             collapsing.title = "选择班级"
             Log.e("AppBar > 0", "监听收缩$verticalOffset")
         }
-        }
+        }*/
 
     }
 
