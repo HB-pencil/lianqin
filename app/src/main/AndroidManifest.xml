@@ -34,9 +34,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ChooseCalssActivity"
-            android:label=""
-            android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".MainActivity"/>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".ManualActivity"
             android:label="脸勤"
             android:parentActivityName=".CameraActivity"/>

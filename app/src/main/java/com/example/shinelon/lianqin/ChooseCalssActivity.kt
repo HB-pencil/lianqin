@@ -4,7 +4,9 @@ import android.app.ProgressDialog
 import android.content.Intent
 import android.graphics.Rect
 import android.graphics.RectF
+import android.opengl.Visibility
 import android.os.Bundle
+import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CollapsingToolbarLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -14,10 +16,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
 import com.example.shinelon.lianqin.model.AllNoteInfos
 import com.example.shinelon.lianqin.model.ClassInfos
 import kotlinx.android.synthetic.main.activity_choose_class.*
+import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.listview_choose_classs.view.*
 
 
@@ -29,24 +33,48 @@ class ChooseCalssActivity: AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_choose_class)
-        setSupportActionBar(choose_activity_toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         val mList = AllNoteInfos.classInfoList
         choose_recycler_view.layoutManager = LinearLayoutManager(this)
         choose_recycler_view.adapter = ChooseAdapter(mList)
-    }
 
-    override fun onWindowFocusChanged(hasFocus: Boolean) {
-        super.onWindowFocusChanged(hasFocus)
-        val layoutParams = choose_activity_toolbar.layoutParams as CollapsingToolbarLayout.LayoutParams
-        layoutParams.topMargin = getStatusBarHeight()
-        layoutParams.bottomMargin = 0
-        choose_activity_toolbar.layoutParams = layoutParams
-        collapsing.minimumHeight = getActionBarHeight()
+        //这个鬼toolbar的使用真是迷的不行！而且要在set之前设置title
+        choose_activity_toolbar.title = ""
+        setSupportActionBar(choose_activity_toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        choose_activity_toolbar.setNavigationOnClickListener {
+            finish()
+        }
+
+        appBarLayout.addOnOffsetChangedListener{
+            appBarLayout, verticalOffset ->    if (verticalOffset == 0) {
+            //不要试图在CollapsingToolbarLayout使用toolbar的title = =又是个官方bug
+            collapsing.title = ""
+            Log.e("AppBar == 0", "监听完全展开$verticalOffset")
+        }
+        else if (Math.abs(verticalOffset) >= appBarLayout!!.totalScrollRange) {
+            collapsing.title = "选择班级"
+            Log.e("AppBar > 0", "监听收缩$verticalOffset")
+        }
+        }
+
     }
 
     /**
-     * 获取状态栏高度
+     * 注意，必须等到此方法，View才可以被正确测量，因为此时view才完成他的布局
+     */
+
+       override fun onWindowFocusChanged(hasFocus: Boolean) {
+           super.onWindowFocusChanged(hasFocus)
+           val layoutParams = choose_activity_toolbar.layoutParams as CollapsingToolbarLayout.LayoutParams
+           layoutParams.topMargin = getStatusBarHeight()
+           layoutParams.bottomMargin = 0
+           choose_activity_toolbar.layoutParams = layoutParams
+           collapsing.minimumHeight = getActionBarHeight()
+       }
+
+    /**
+     * 获取状态栏高度，注意，不要试图在CoordinatorLayout中不要使用fitSystemWindows这个属性
      */
     fun getStatusBarHeight(): Int{
         val dm = DisplayMetrics()
